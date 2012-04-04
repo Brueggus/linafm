@@ -1,12 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/AbsoluteLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hello" />
 
-</LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/mainmenu" />
+
+
+    <Button
+        android:id="@+id/play"
+        android:layout_width="325dp"
+        android:layout_height="288dp"
+        android:layout_x="266dp"
+        android:layout_y="376dp"
+        android:text=""
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/end"
+        android:layout_width="345dp"
+        android:layout_height="308dp"
+        android:layout_x="765dp"
+        android:layout_y="336dp"
+        android:text=""
+        android:visibility="invisible" />
+
+</AbsoluteLayout>

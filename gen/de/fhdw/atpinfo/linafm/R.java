@@ -12,6 +12,14 @@ public final class R {
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
+        public static final int icon=0x7f020001;
+        public static final int mainmenu=0x7f020002;
+    }
+    public static final class id {
+        public static final int AbsoluteLayout1=0x7f050000;
+        public static final int end=0x7f050003;
+        public static final int imageView1=0x7f050001;
+        public static final int play=0x7f050002;
     }
     public static final class layout {
         public static final int main=0x7f030000;
