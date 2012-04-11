@@ -1,15 +1,17 @@
 package de.fhdw.atpinfo.linafm;
 
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class LinafmActivity extends Activity implements OnClickListener {
 	
@@ -47,9 +49,27 @@ public class LinafmActivity extends Activity implements OnClickListener {
         dialog.setCancelable(true);
         
         ListView lv = (ListView) dialog.findViewById(R.id.lvLvl);
-        String[] levelNames = LevelHandler.getLevelCaptionsForMenu();
-        ArrayAdapter<String> menuItems = new ArrayAdapter<String>(this, R.layout.menu_item, levelNames);
+        String[] levelNames;
+        try {
+        	levelNames = LevelHandler.getLevelCaptionsForMenu(context);
+        }
+        catch (Exception ex) {
+        	Tools.ShowErrorMessage(getString(android.R.string.dialog_alert_title), 
+        			"Es ist ein Fehler beim Einlesen der Levelliste aufgetreten.", context);
+        	return;
+        }
+		ArrayAdapter<String> menuItems = new ArrayAdapter<String>(this, R.layout.menu_item, levelNames);
         lv.setAdapter(menuItems);
+             
+        lv.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+        	public void onItemClick(AdapterView<?> parent, View view,
+                int position, long id) {
+              newGame(position);
+              dialog.dismiss();
+            }
+          });
+        
 
         Button button = (Button) dialog.findViewById(R.id.btnCancel);
         button.setOnClickListener(new OnClickListener() {
@@ -60,5 +80,10 @@ public class LinafmActivity extends Activity implements OnClickListener {
         });
    
         dialog.show();
+	}
+	
+	private void newGame(int levelId) {
+		// TODO
+		Toast.makeText(context, "Neues Spiel wird gestartet, Level-ID: " + levelId, Toast.LENGTH_SHORT).show();
 	}
 }

@@ -1,6 +1,6 @@
-# linafm - Luc Is Not A French Man
+# linafm - LÜK Is Not A French Man
 
-Lük-Clone for Android 3.1
+LÜK-Clone for Android 3.1
 
 Developers: 
 

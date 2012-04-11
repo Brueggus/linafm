@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<!-- Struktur absolut noch nicht vollständig!! -->
+<level name="In der Weihnachtsbäckerei" difficulty="easy">
+  <tiles>
+      <!-- Hier wohnen später die Plättchen -->
+  </tiles>
+</level>
