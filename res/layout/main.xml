@@ -4,14 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-
-
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/mainmenu" />
-
+        android:src="@drawable/mainmenu" 
+        android:contentDescription="@string/desc_main_menu_background"/>
 
     <Button
         android:id="@+id/play"
@@ -20,8 +18,8 @@
         android:layout_x="266dp"
         android:layout_y="376dp"
         android:text=""
-        android:visibility="invisible" />
-
+        android:background="@android:color/transparent" />
+        
     <Button
         android:id="@+id/end"
         android:layout_width="345dp"
@@ -29,6 +27,6 @@
         android:layout_x="765dp"
         android:layout_y="336dp"
         android:text=""
-        android:visibility="invisible" />
-
+        android:background="@android:color/transparent" />
+        
 </AbsoluteLayout>
