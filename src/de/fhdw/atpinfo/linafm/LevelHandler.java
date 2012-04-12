@@ -51,6 +51,8 @@ public class LevelHandler {
 				}
 				eventType = parser.next();
 			}
+
+			in.close();
 		}
 	}
 	
