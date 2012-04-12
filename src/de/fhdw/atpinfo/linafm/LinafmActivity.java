@@ -21,6 +21,14 @@ public class LinafmActivity extends Activity implements OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
+		context = LinafmActivity.this;    	
+        try {
+        	LevelHandler.refreshLevelCaptions(context);
+        }
+        catch (Exception ex) {
+        	Tools.ShowErrorMessage(getString(android.R.string.dialog_alert_title), 
+        			"Es ist ein Fehler beim Einlesen der Levelliste aufgetreten.", context);
+        }
         setContentView(R.layout.main);
         
         mBtnPlay = (Button)findViewById(R.id.play);
@@ -29,6 +37,18 @@ public class LinafmActivity extends Activity implements OnClickListener {
         mBtnEnd.setOnClickListener(this);
     }
     
+	@Override
+	protected void onResume() {
+		super.onResume();
+        try {
+        	LevelHandler.refreshLevelCaptions(context);
+        }
+        catch (Exception ex) {
+        	Tools.ShowErrorMessage(getString(android.R.string.dialog_alert_title), 
+        			"Es ist ein Fehler beim Einlesen der Levelliste aufgetreten.", context);
+        }
+	}
+
 	@Override
 	public void onClick(View button) {
 		switch (button.getId()) {
@@ -42,7 +62,6 @@ public class LinafmActivity extends Activity implements OnClickListener {
 	}
 
 	private void openLevelChooserDialog() {
-		context = LinafmActivity.this;
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.levelchooser);
         dialog.setTitle(R.string.choose_level);

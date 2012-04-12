@@ -12,14 +12,26 @@ import android.content.res.AssetManager;
 public class LevelHandler {
 	private static final String LEVEL_SUBDIR = "levels";
 	private static final String LEVEL_DESC_FILE = "desc.xml";
+	private static String[] levels = null, captions = null;
+	private static int levelCount;
 
 	public static String[] getLevelCaptionsForMenu(Context context) 
 			throws IOException, XmlPullParserException
 	{
+		if (captions == null || levels == null)
+			refreshLevelCaptions(context);
+		
+		return captions;
+	}
+	
+	public static void refreshLevelCaptions(Context context)
+			throws IOException, XmlPullParserException
+	{
 		AssetManager assetMgr = context.getAssets();
-		String[] levels = assetMgr.list(LEVEL_SUBDIR);
-		int levelCount = levels.length, eventType;
-		String[] captions = new String[levelCount];
+		levels = assetMgr.list(LEVEL_SUBDIR);
+		levelCount = levels.length;
+		int eventType;
+		captions = new String[levelCount];
 		
 		XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
 		XmlPullParser parser = factory.newPullParser();
@@ -38,11 +50,8 @@ public class LevelHandler {
 					break;
 				}
 				eventType = parser.next();
-					
 			}
 		}
-		
-		return captions;
 	}
 	
 	private void getLevelFromXML(Context context)
