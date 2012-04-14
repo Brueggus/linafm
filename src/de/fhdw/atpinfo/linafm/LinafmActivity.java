@@ -13,15 +13,35 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+/**
+ * linafm - LÜK Is Not A French Man
+ * LÜK-Clone for Android 3.1
+ * 
+ * https://github.com/Brueggus/linafm
+ * 
+ * @author Esther Hentrich, Daniel Philipp, Alexander Brügmann
+ * @version 0.1
+ *
+ */
+/**
+ * @author brueggi
+ *
+ */
 public class LinafmActivity extends Activity implements OnClickListener {
 	
 	private Context context;
 	private Button mBtnPlay, mBtnEnd;
 
+    /**
+     * Hier fängt alles an...
+     * 
+     * @see android.app.Activity#onCreate(android.os.Bundle)
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
 		context = LinafmActivity.this;    	
+		// Levelliste einlesen		
         try {
         	LevelHandler.refreshLevelCaptions(context);
         }
@@ -37,9 +57,15 @@ public class LinafmActivity extends Activity implements OnClickListener {
         mBtnEnd.setOnClickListener(this);
     }
     
+	/**
+	 * Acitivity kommt wieder in den Vordergrund
+	 * 
+	 * @see android.app.Activity#onResume()
+	 */
 	@Override
 	protected void onResume() {
 		super.onResume();
+		// Levelliste aktualisieren
         try {
         	LevelHandler.refreshLevelCaptions(context);
         }
@@ -49,6 +75,11 @@ public class LinafmActivity extends Activity implements OnClickListener {
         }
 	}
 
+	/**
+	 * Klick auf einen der Buttons im Hauptmenü
+	 * 
+	 * @see android.view.View.OnClickListener#onClick(android.view.View)
+	 */
 	@Override
 	public void onClick(View button) {
 		switch (button.getId()) {
@@ -61,12 +92,18 @@ public class LinafmActivity extends Activity implements OnClickListener {
 		}
 	}
 
+	
+	/**
+	 * Dialog zur Levelauswahl wird geöffnet
+	 */
 	private void openLevelChooserDialog() {
-        final Dialog dialog = new Dialog(context);
+        // Neuen Dialog initialisieren
+		final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.levelchooser);
         dialog.setTitle(R.string.choose_level);
         dialog.setCancelable(true);
         
+        // ListView des Dialogs mit den Namen der Level füllen
         ListView lv = (ListView) dialog.findViewById(R.id.lvLvl);
         String[] levelNames;
         try {
@@ -79,7 +116,8 @@ public class LinafmActivity extends Activity implements OnClickListener {
         }
 		ArrayAdapter<String> menuItems = new ArrayAdapter<String>(this, R.layout.menu_item, levelNames);
         lv.setAdapter(menuItems);
-             
+
+        // Bei Auswahl eines Levels wird das jeweilige Level gestartet und der Dialog geschlossen
         lv.setOnItemClickListener(new OnItemClickListener() {
 			@Override
         	public void onItemClick(AdapterView<?> parent, View view,
@@ -89,7 +127,7 @@ public class LinafmActivity extends Activity implements OnClickListener {
             }
           });
         
-
+        // Abbrechen-Button
         Button button = (Button) dialog.findViewById(R.id.btnCancel);
         button.setOnClickListener(new OnClickListener() {
         @Override
@@ -101,6 +139,11 @@ public class LinafmActivity extends Activity implements OnClickListener {
         dialog.show();
 	}
 	
+	/**
+	 * Neues Spiel starten
+	 * 
+	 * @param levelId ID des gewählten Levels
+	 */
 	private void newGame(int levelId) {
 		// TODO
 		Toast.makeText(context, "Neues Spiel wird gestartet, Level-ID: " + levelId, Toast.LENGTH_SHORT).show();

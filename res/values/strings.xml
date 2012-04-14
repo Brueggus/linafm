@@ -3,7 +3,7 @@
 
     <string name="hello">Hello World, MainActivity!</string>
     <string name="app_name">LÜK Is Not a French Man</string>
-    <string name="desc_main_menu_background">Hintergrundbild des Hauptmenüs.</string>
+    <string name="desc_main_menu_background">Hintergrundbild des Hauptmenüs</string>
     <string name="choose_level">Level auswählen</string>
 
 </resources>
