@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/AbsoluteLayout1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    tools:ignore="Deprecated" >
 
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/mainmenu" 
-        android:contentDescription="@string/desc_main_menu_background"/>
+        android:contentDescription="@string/desc_main_menu_background"
+        android:src="@drawable/mainmenu" />
 
     <Button
         android:id="@+id/play"
@@ -17,16 +19,16 @@
         android:layout_height="288dp"
         android:layout_x="266dp"
         android:layout_y="376dp"
-        android:text=""
-        android:background="@android:color/transparent" />
-        
+        android:background="@android:color/transparent"
+        android:text="" />
+
     <Button
         android:id="@+id/end"
         android:layout_width="345dp"
         android:layout_height="308dp"
         android:layout_x="765dp"
         android:layout_y="336dp"
-        android:text=""
-        android:background="@android:color/transparent" />
-        
+        android:background="@android:color/transparent"
+        android:text="" />
+
 </AbsoluteLayout>
