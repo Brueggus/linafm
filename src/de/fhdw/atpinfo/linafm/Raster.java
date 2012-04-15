@@ -68,6 +68,7 @@ public class Raster extends TableLayout {
 	 * Plättchen an der ersten freien Position einzufügen
 	 * @param tile
 	 * @param position
+	 * @throws ArrayIndexOutOfBoundsException
 	 */
 	public void addTile(Tile tile, int position) throws ArrayIndexOutOfBoundsException {
 		// Befindet sich die Position innerhalb der Arraygrenzen?
@@ -86,6 +87,11 @@ public class Raster extends TableLayout {
 		felder[position] = tile;
 	}
 	
+	/**
+	 * Plättchen an einer bestimmten Position löschen
+	 * @param position
+	 * @throws ArrayIndexOutOfBoundsException
+	 */
 	public void removeTile(int position) throws ArrayIndexOutOfBoundsException {
 		// Befindet sich die Position innerhalb der Arraygrenzen?
 		if (position >= size || position < 0)
