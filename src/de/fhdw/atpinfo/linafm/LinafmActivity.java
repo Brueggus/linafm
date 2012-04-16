@@ -3,6 +3,7 @@ package de.fhdw.atpinfo.linafm;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -146,6 +147,9 @@ public class LinafmActivity extends Activity implements OnClickListener {
 	 */
 	private void newGame(int levelId) {
 		// TODO
-		Toast.makeText(context, "Neues Spiel wird gestartet, Level-ID: " + levelId, Toast.LENGTH_SHORT).show();
+		//Toast.makeText(context, "Neues Spiel wird gestartet, Level-ID: " + levelId, Toast.LENGTH_SHORT).show();
+		Intent i = new Intent(this, Spiel.class);
+		startActivity(i);
+
 	}
 }

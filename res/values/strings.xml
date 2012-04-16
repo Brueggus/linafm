@@ -7,5 +7,7 @@
     <string name="choose_level">Level auswählen</string>
     <string name="ex_insert_tile_out_of_raster">Es wurde versucht, ein Plättchen außerhalb des Rasters einzufügen!</string>
     <string name="ex_no_free_space_in_raster">Kein freies Feld im Raster. Plättchen kann nicht eingefügt werden!</string>
+    <string name="check">Überprüfen</string>
+    <string name="show_popup">Popup anzeigen</string>
 
 </resources>
