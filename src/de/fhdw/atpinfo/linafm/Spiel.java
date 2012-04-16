@@ -1,5 +1,9 @@
 package de.fhdw.atpinfo.linafm;
 
+import java.io.IOException;
+
+import org.xmlpull.v1.XmlPullParserException;
+
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -35,7 +39,15 @@ public class Spiel extends Activity {
 		levelId = b.getInt("levelId");
 
 		// Level laden
-		spielfeld = LevelHandler.loadLevel(levelId, context);
+		try {
+			spielfeld = LevelHandler.loadLevel(levelId, context);
+		} catch (XmlPullParserException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		setContentView(R.layout.spielfeld);
 	}
