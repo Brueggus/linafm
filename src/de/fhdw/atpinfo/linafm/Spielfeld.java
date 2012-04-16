@@ -28,18 +28,42 @@ public class Spielfeld {
 	private Bitmap img;
 	
 	/**
+	 * Die Lösung des Spiels:
+	 * Welches Plättchen gehört an welche Position
+	 * position --> tile.Id
+	 * Beispiel: solution[4] = 2
+	 *  --> das Plättchen mit der ID 2 muss am Ende auf Position 4 liegen
+	 */
+	private int[] solution;
+	
+	/**
+	 * Der Name des Levels
+	 */
+	private String name;
+	
+	/**
 	 * Ist das Popup gerade aktiv?
 	 */
 	private boolean popupOpen = false;
 
-	public Spielfeld(Raster rUnten, Raster rPopup, Bitmap img) {
-		// TODO Auto-generated constructor stub
+	public Spielfeld(Raster rUnten, Raster rPopup, Bitmap img, int[] solution, String name) {
+		rasterUnten = rUnten;
+		rasterPopup = rPopup;
+		this.img = img;
+		this.solution = solution;
+		this.name = name;
 	}
 	
+	/**
+	 * Popup öffnen
+	 */
 	public void showPopup() {
 		// NYI
 	}
 	
+	/**
+	 * Popup schließen
+	 */
 	public void hidePopup() {
 		// NYI
 	}
