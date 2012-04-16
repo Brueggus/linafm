@@ -2,7 +2,6 @@ package de.fhdw.atpinfo.linafm;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.util.AttributeSet;
 import android.widget.ImageButton;
 
 /**
