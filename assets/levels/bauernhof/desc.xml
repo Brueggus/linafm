@@ -1,7 +1,13 @@
 <?xml version="1.0"?>
-<!-- Struktur absolut noch nicht vollständig!! -->
 <level name="Bauernhof" difficulty="easy">
-  <tiles>
-      <!-- Hier wohnen später die Plättchen -->
+  <tiles total="8">
+      <tile image="cat.png" final_pos="4" />
+      <tile image="cow.png" final_pos="8" />
+      <tile image="dog.png" final_pos="1" />
+      <tile image="elk.png" final_pos="3" />
+      <tile image="giraffe.png" final_pos="7" />
+      <tile image="goat.png" final_pos="2" />
+      <tile image="owl.png" final_pos="6" />
+      <tile image="penguin.png" final_pos="5" />
   </tiles>
 </level>
