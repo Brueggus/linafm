@@ -7,6 +7,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetManager;
 
 /**
@@ -118,9 +119,10 @@ public class LevelHandler {
 	 * @param id ID des Levels
 	 * @param context ...damit wir an die assets drankommen
 	 */
-	private void loadLevel(int id, Context context)
+	public static Spielfeld loadLevel(int id, Context context)
 	{
 		// NYI
+		return null;
 	}
 		
 }

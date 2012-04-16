@@ -1,6 +1,7 @@
 package de.fhdw.atpinfo.linafm;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 
 
@@ -15,6 +16,8 @@ import android.os.Bundle;
 public class Spiel extends Activity {
 	
 	private Spielfeld spielfeld;
+	private Context context;
+	private int levelId;
 
 
 	/**
@@ -23,9 +26,16 @@ public class Spiel extends Activity {
 	 * @param savedInstanceState
 	 * @param spielfeld
 	 */
-	protected void onCreate(Bundle savedInstanceState, Spielfeld spielfeld) {
+	protected void onCreate(Bundle savedInstanceState) {
+		context = Spiel.this;
 		super.onCreate(savedInstanceState);
-		this.spielfeld = spielfeld;
+		
+		// die Level-ID steckt in den Extras
+		Bundle b = getIntent().getExtras();
+		levelId = b.getInt("levelId");
+
+		// Level laden
+		spielfeld = LevelHandler.loadLevel(levelId, context);
 		
 		setContentView(R.layout.spielfeld);
 	}

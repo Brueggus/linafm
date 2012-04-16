@@ -6,12 +6,13 @@
     android:padding="10dp" >
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/imgOben"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1" />
 
     <TableLayout
+        android:id="@+id/tlTilesUnten"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1">

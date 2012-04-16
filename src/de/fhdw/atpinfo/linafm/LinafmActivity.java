@@ -148,8 +148,11 @@ public class LinafmActivity extends Activity implements OnClickListener {
 	private void newGame(int levelId) {
 		// TODO
 		//Toast.makeText(context, "Neues Spiel wird gestartet, Level-ID: " + levelId, Toast.LENGTH_SHORT).show();
-		Intent i = new Intent(this, Spiel.class);
-		startActivity(i);
+		Intent i = new Intent(context, Spiel.class);
+		
+		// Wir geben der neuen Activity die Level-ID mit
+		i.putExtra("levelId", levelId);
 
+		startActivity(i);
 	}
 }
