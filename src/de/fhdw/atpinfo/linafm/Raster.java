@@ -2,6 +2,7 @@ package de.fhdw.atpinfo.linafm;
 
 import android.content.Context;
 import android.widget.TableLayout;
+import android.widget.TableRow;
 
 /**
  * Die Plättchen werden innerhalb des Rasters angeordnet
@@ -18,9 +19,15 @@ public class Raster extends TableLayout {
 	private Tile[] felder;
 	
 	/**
-	 * Größe es Rasters
+	 * Größe des Rasters
 	 */
 	private int size = 0;
+	
+	/**
+	 * Anzahl der Zeilen
+	 * !! als Double-Wert !!
+	 */
+	private final double rows = 2.0;
 
 	public Raster(Context context, int size) {
 		super(context);
@@ -30,6 +37,8 @@ public class Raster extends TableLayout {
 
 		felder = new Tile[size];
 		this.size = size;
+		
+		buildRaster(context);
 	}
 	
 	public Raster(Context context, Tile[] tiles) {
@@ -37,7 +46,44 @@ public class Raster extends TableLayout {
 		
 		felder = tiles;
 		size = felder.length;
+		
+		buildRaster(context);
 	}
+	
+	/**
+	 * Diese Methode baut aus dem Plättchen-Array das Raster auf
+	 * @param context Context
+	 */
+	private void buildRaster(Context context)
+	{
+		// Wie viele Plättchen in einer Reihe?
+		int columns = (int)Math.ceil( size / rows);
+		
+		// Raster aufbauen und füllen
+		for (int i = 0; i < rows; i++)
+		{
+			// Neue Zeile im Table-Layout
+			TableRow tr = new TableRow(context);
+	        tr.setLayoutParams(new LayoutParams(
+                    LayoutParams.FILL_PARENT, // Breite
+                    LayoutParams.WRAP_CONTENT)); // Höhe
+			
+			for (int j = 0; j < size; j++)
+			{
+				tr.addView(felder[j]);
+
+				// Zeile voll?
+				if ((j % columns) == 0)
+					break;
+			}
+			
+			// Zeile dem Layout hinzufügen
+			this.addView(tr, new TableLayout.LayoutParams(
+		             LayoutParams.FILL_PARENT,
+		             LayoutParams.WRAP_CONTENT));
+		}
+	}
+	
 	
 	/**
 	 * Prüft, ob alle Felder des Rasters mit einem Plättchen belegt ist 
