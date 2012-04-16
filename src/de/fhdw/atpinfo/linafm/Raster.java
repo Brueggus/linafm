@@ -60,6 +60,7 @@ public class Raster extends TableLayout {
 		int columns = (int)Math.ceil( size / rows);
 		
 		// Raster aufbauen und füllen
+		int j = 0;
 		for (int i = 0; i < rows; i++)
 		{
 			// Neue Zeile im Table-Layout
@@ -68,13 +69,16 @@ public class Raster extends TableLayout {
                     LayoutParams.FILL_PARENT, // Breite
                     LayoutParams.WRAP_CONTENT)); // Höhe
 			
-			for (int j = 0; j < size; j++)
+			for (; j < size; j++)
 			{
 				tr.addView(felder[j]);
 
 				// Zeile voll?
-				if ((j % columns) == 0)
-					break;
+				if ( j != 0 && (j % columns) == 0)
+				{
+					j++;
+					break;					
+				}
 			}
 			
 			// Zeile dem Layout hinzufügen

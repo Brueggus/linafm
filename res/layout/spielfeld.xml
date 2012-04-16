@@ -11,12 +11,13 @@
         android:layout_height="wrap_content"
         android:layout_weight="1" />
 
-    <TableLayout
-        android:id="@+id/tlTilesUnten"
+    <!-- Platzhalter, hier kommen später die Plättchen rein -->
+    <FrameLayout
+        android:id="@+id/tilesUnten"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1">
-    </TableLayout>
+    </FrameLayout>
 
     <RelativeLayout
         android:layout_width="fill_parent"

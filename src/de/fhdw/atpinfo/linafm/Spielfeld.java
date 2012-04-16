@@ -68,4 +68,25 @@ public class Spielfeld {
 		// NYI
 	}
 
+	/**
+	 * @return the img
+	 */
+	public Bitmap getImg() {
+		return img;
+	}
+
+	/**
+	 * @return the rasterUnten
+	 */
+	public Raster getRasterUnten() {
+		return rasterUnten;
+	}
+
+	/**
+	 * @return the rasterPopup
+	 */
+	public Raster getRasterPopup() {
+		return rasterPopup;
+	}
+
 }

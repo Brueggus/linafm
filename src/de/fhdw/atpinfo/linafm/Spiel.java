@@ -7,6 +7,8 @@ import org.xmlpull.v1.XmlPullParserException;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 
 /**
@@ -49,7 +51,16 @@ public class Spiel extends Activity {
 			e.printStackTrace();
 		}
 		
+		// Spielfeld anzeigen
 		setContentView(R.layout.spielfeld);
+		
+		// Bild oben
+		ImageView image = (ImageView)findViewById(R.id.imgOben);
+		image.setImageBitmap(spielfeld.getImg());
+		
+		// Raster unten
+		FrameLayout frame = (FrameLayout)findViewById(R.id.tilesUnten);
+		frame.addView(spielfeld.getRasterUnten());
 	}
 	
 	
