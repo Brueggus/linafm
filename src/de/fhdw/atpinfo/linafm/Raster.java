@@ -73,11 +73,12 @@ public class Raster extends TableLayout {
                     LayoutParams.FILL_PARENT, // Höhe
                     1.0f)); // layout_weight
 			
+	        // Zeile befüllen
 			do
 			{
 				tr.addView(felder[j]);
 			} 
-			while ( (++j % columns) != 0 );
+			while ( (++j % columns) != 0 ); // wird false, sobald die Zeile voll ist
 			
 			// Zeile dem Layout hinzufügen
 			this.addView(tr);
