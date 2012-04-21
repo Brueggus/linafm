@@ -3,6 +3,7 @@ package de.fhdw.atpinfo.linafm;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.widget.ImageButton;
+import android.widget.TableRow.LayoutParams;
 
 /**
  * Klasse Pl‰ttchen, abgeleitet vom ImageButton
@@ -41,6 +42,17 @@ public class Tile extends ImageButton {
 		this.back = back;
 		
 		setImageBitmap(front);
+
+		// Breite auf 0 Pixel festgesetzt, da anderenfalls die Buttons nicht
+		// gleichm‰ﬂig in der Zeile verteilt werden.
+		LayoutParams params = new LayoutParams(
+                0, // width
+                LayoutParams.MATCH_PARENT, // height 
+                1.0f); // layout_weight
+		
+		setScaleType(ScaleType.FIT_CENTER);
+		setLayoutParams(params);
+
 	}
 	
 	/**

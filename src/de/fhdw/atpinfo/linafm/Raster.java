@@ -59,6 +59,9 @@ public class Raster extends TableLayout {
 		// Wie viele Plättchen in einer Reihe?
 		int columns = (int)Math.ceil( size / rows);
 		
+		// Insgesamt x Zeilen im Raster
+		setWeightSum((float)rows);
+		
 		// Raster aufbauen und füllen
 		int j = 0;
 		for (int i = 0; i < rows; i++)
@@ -67,24 +70,17 @@ public class Raster extends TableLayout {
 			TableRow tr = new TableRow(context);
 	        tr.setLayoutParams(new LayoutParams(
                     LayoutParams.FILL_PARENT, // Breite
-                    LayoutParams.WRAP_CONTENT)); // Höhe
+                    LayoutParams.FILL_PARENT, // Höhe
+                    1.0f)); // layout_weight
 			
-			for (; j < size; j++)
+			do
 			{
 				tr.addView(felder[j]);
-
-				// Zeile voll?
-				if ( j != 0 && (j % columns) == 0)
-				{
-					j++;
-					break;					
-				}
-			}
+			} 
+			while ( (++j % columns) != 0 );
 			
 			// Zeile dem Layout hinzufügen
-			this.addView(tr, new TableLayout.LayoutParams(
-		             LayoutParams.FILL_PARENT,
-		             LayoutParams.WRAP_CONTENT));
+			this.addView(tr);
 		}
 	}
 	
