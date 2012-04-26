@@ -5,21 +5,21 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 /**
- * Die Plättchen werden innerhalb des Rasters angeordnet
+ * Die Plï¿½ttchen werden innerhalb des Rasters angeordnet
  * 
- * @author Esther Hentrich, Daniel Philipp, Alexander Brügmann
+ * @author Esther Hentrich, Daniel Philipp, Alexander Brï¿½gmann
  * @version 0.1
  *
  */
 public class Raster extends TableLayout {
 	
 	/**
-	 * Enthält die Plättchen
+	 * Enthï¿½lt die Plï¿½ttchen
 	 */
 	private Tile[] felder;
 	
 	/**
-	 * Größe des Rasters
+	 * Grï¿½ï¿½e des Rasters
 	 */
 	private int size = 0;
 	
@@ -38,7 +38,7 @@ public class Raster extends TableLayout {
 		felder = new Tile[size];
 		this.size = size;
 		
-		buildRaster(context);
+//		buildRaster(context);
 	}
 	
 	public Raster(Context context, Tile[] tiles) {
@@ -47,22 +47,22 @@ public class Raster extends TableLayout {
 		felder = tiles;
 		size = felder.length;
 		
-		buildRaster(context);
+//		buildRaster(context);
 	}
 	
 	/**
-	 * Diese Methode baut aus dem Plättchen-Array das Raster auf
+	 * Diese Methode baut aus dem Plï¿½ttchen-Array das Raster auf
 	 * @param context Context
 	 */
-	private void buildRaster(Context context)
+	public void buildRaster(Context context)
 	{
-		// Wie viele Plättchen in einer Reihe?
+		// Wie viele Plï¿½ttchen in einer Reihe?
 		int columns = (int)Math.ceil( size / rows);
 		
 		// Insgesamt x Zeilen im Raster
 		setWeightSum((float)rows);
 		
-		// Raster aufbauen und füllen
+		// Raster aufbauen und fï¿½llen
 		int j = 0;
 		for (int i = 0; i < rows; i++)
 		{
@@ -70,24 +70,24 @@ public class Raster extends TableLayout {
 			TableRow tr = new TableRow(context);
 	        tr.setLayoutParams(new LayoutParams(
                     LayoutParams.FILL_PARENT, // Breite
-                    LayoutParams.FILL_PARENT, // Höhe
+                    LayoutParams.FILL_PARENT, // Hï¿½he
                     1.0f)); // layout_weight
 			
-	        // Zeile befüllen
+	        // Zeile befï¿½llen
 			do
 			{
 				tr.addView(felder[j]);
 			} 
 			while ( (++j % columns) != 0 ); // wird false, sobald die Zeile voll ist
 			
-			// Zeile dem Layout hinzufügen
+			// Zeile dem Layout hinzufï¿½gen
 			this.addView(tr);
 		}
 	}
 	
 	
 	/**
-	 * Prüft, ob alle Felder des Rasters mit einem Plättchen belegt ist 
+	 * Prï¿½ft, ob alle Felder des Rasters mit einem Plï¿½ttchen belegt ist 
 	 * @return Raster komplett?
 	 */
 	public boolean isComplete() {
@@ -99,7 +99,7 @@ public class Raster extends TableLayout {
 	}
 	
 	/**
-	 * Prüft, ob Raster leer ist 
+	 * Prï¿½ft, ob Raster leer ist 
 	 * @return Raster leer?
 	 */
 	public boolean isEmpty() {
@@ -111,8 +111,8 @@ public class Raster extends TableLayout {
 	}
 	
 	/**
-	 * Plättchen an einer bestimmten Position zum Raster hinzufügen. -1 übergeben, um
-	 * Plättchen an der ersten freien Position einzufügen
+	 * Plï¿½ttchen an einer bestimmten Position zum Raster hinzufï¿½gen. -1 ï¿½bergeben, um
+	 * Plï¿½ttchen an der ersten freien Position einzufï¿½gen
 	 * @param tile
 	 * @param position
 	 * @throws ArrayIndexOutOfBoundsException
@@ -123,7 +123,7 @@ public class Raster extends TableLayout {
 			throw new ArrayIndexOutOfBoundsException(R.string.ex_insert_tile_out_of_raster);
 		else if (position == -1)
 			do {
-				// Position hochzählen, bis ein freies Feld gefunden wird (oder auch nicht...)
+				// Position hochzï¿½hlen, bis ein freies Feld gefunden wird (oder auch nicht...)
 				position++;
 				if (position >= size)
 					throw new ArrayIndexOutOfBoundsException(R.string.ex_no_free_space_in_raster);
@@ -135,7 +135,7 @@ public class Raster extends TableLayout {
 	}
 	
 	/**
-	 * Plättchen an einer bestimmten Position löschen
+	 * Plï¿½ttchen an einer bestimmten Position lï¿½schen
 	 * @param position
 	 * @throws ArrayIndexOutOfBoundsException
 	 */
@@ -146,4 +146,6 @@ public class Raster extends TableLayout {
 		
 		felder[position] = null;
 	}
+	
+	
 }

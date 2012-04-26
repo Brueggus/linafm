@@ -9,5 +9,7 @@
     <string name="ex_no_free_space_in_raster">Kein freies Feld im Raster. Plättchen kann nicht eingefügt werden!</string>
     <string name="check">Überprüfen</string>
     <string name="show_popup">Popup anzeigen</string>
+    <string name="popup">Wähle weise</string>
+    <string name="close">PopUp schließen</string>
 
 </resources>

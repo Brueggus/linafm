@@ -1,24 +1,25 @@
 package de.fhdw.atpinfo.linafm;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 
 /**
  * Unser Spielfeld
  * 
- * @author Esther Hentrich, Daniel Philipp, Alexander Brügmann
+ * @author Esther Hentrich, Daniel Philipp, Alexander Brï¿½gmann
  * @version 0.1
  *
  */
 public class Spielfeld {
-	
+
 	/**
 	 * Das Raster, welches auf dem Spielfeld zu sehen ist
 	 */
 	private Raster rasterUnten;
 
 	/**
-	 * Dieses Raster erscheint im Popup, welches sich nach dem Anwählen
-	 * eines Plättchens im unteren Raster öffnet
+	 * Dieses Raster erscheint im Popup, welches sich nach dem Anwï¿½hlen
+	 * eines Plï¿½ttchens im unteren Raster ï¿½ffnet
 	 */
 	private Raster rasterPopup;
 	
@@ -28,11 +29,11 @@ public class Spielfeld {
 	private Bitmap img;
 	
 	/**
-	 * Die Lösung des Spiels:
-	 * Welches Plättchen gehört an welche Position
+	 * Die Lï¿½sung des Spiels:
+	 * Welches Plï¿½ttchen gehï¿½rt an welche Position
 	 * position --> tile.Id
 	 * Beispiel: solution[4] = 2
-	 *  --> das Plättchen mit der ID 2 muss am Ende auf Position 4 liegen
+	 *  --> das Plï¿½ttchen mit der ID 2 muss am Ende auf Position 4 liegen
 	 */
 	private int[] solution;
 	
@@ -46,23 +47,22 @@ public class Spielfeld {
 	 */
 	private boolean popupOpen = false;
 
-	public Spielfeld(Raster rUnten, Raster rPopup, Bitmap img, int[] solution, String name) {
+	private Context context;
+
+	public Spielfeld(Context context, Raster rUnten, Raster rPopup, Bitmap img, int[] solution, String name) {
+		context = context;
 		rasterUnten = rUnten;
 		rasterPopup = rPopup;
 		this.img = img;
 		this.solution = solution;
 		this.name = name;
+		
+		rasterUnten.buildRaster(context);
 	}
 	
-	/**
-	 * Popup öffnen
-	 */
-	public void showPopup() {
-		// NYI
-	}
 	
 	/**
-	 * Popup schließen
+	 * Popup schlieï¿½en
 	 */
 	public void hidePopup() {
 		// NYI
