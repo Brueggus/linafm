@@ -14,12 +14,12 @@ import android.widget.Button;
 import android.widget.ListView;
 
 /**
- * linafm - L�K Is Not A French Man
- * L�K-Clone for Android 3.1
+ * linafm - LÜK Is Not A French Man
+ * LÜK-Clone for Android 3.1
  * 
  * https://github.com/Brueggus/linafm
  * 
- * @author Esther Hentrich, Daniel Philipp, Alexander Br�gmann
+ * @author Esther Hentrich, Daniel Philipp, Alexander Brügmann
  * @version 0.1
  *
  */
@@ -33,7 +33,7 @@ public class LinafmActivity extends Activity implements OnClickListener {
 	private Button mBtnPlay, mBtnEnd;
 
     /**
-     * Hier f�ngt alles an...
+     * Hier fängt alles an...
      * 
      * @see android.app.Activity#onCreate(android.os.Bundle)
      */
@@ -76,7 +76,7 @@ public class LinafmActivity extends Activity implements OnClickListener {
 	}
 
 	/**
-	 * Klick auf einen der Buttons im Hauptmen�
+	 * Klick auf einen der Buttons im Hauptmenü
 	 * 
 	 * @see android.view.View.OnClickListener#onClick(android.view.View)
 	 */
@@ -94,7 +94,7 @@ public class LinafmActivity extends Activity implements OnClickListener {
 
 	
 	/**
-	 * Dialog zur Levelauswahl wird ge�ffnet
+	 * Dialog zur Levelauswahl wird geöffnet
 	 */
 	private void openLevelChooserDialog() {
         // Neuen Dialog initialisieren
@@ -103,7 +103,7 @@ public class LinafmActivity extends Activity implements OnClickListener {
         dialog.setTitle(R.string.choose_level);
         dialog.setCancelable(true);
         
-        // ListView des Dialogs mit den Namen der Level f�llen
+        // ListView des Dialogs mit den Namen der Level füllen
         ListView lv = (ListView) dialog.findViewById(R.id.lvLvl);
         String[] levelNames;
         try {
@@ -143,7 +143,7 @@ public class LinafmActivity extends Activity implements OnClickListener {
 	/**
 	 * Neues Spiel starten
 	 * 
-	 * @param levelId ID des gew�hlten Levels
+	 * @param levelId ID des gewählten Levels
 	 */
 	private void newGame(int levelId) {
 		// TODO

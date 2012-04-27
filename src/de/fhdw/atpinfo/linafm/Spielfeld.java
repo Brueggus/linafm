@@ -6,7 +6,7 @@ import android.graphics.Bitmap;
 /**
  * Unser Spielfeld
  * 
- * @author Esther Hentrich, Daniel Philipp, Alexander Br�gmann
+ * @author Esther Hentrich, Daniel Philipp, Alexander Brügmann
  * @version 0.1
  *
  */
@@ -18,8 +18,8 @@ public class Spielfeld {
 	private Raster rasterUnten;
 
 	/**
-	 * Dieses Raster erscheint im Popup, welches sich nach dem Anw�hlen
-	 * eines Pl�ttchens im unteren Raster �ffnet
+	 * Dieses Raster erscheint im Popup, welches sich nach dem Anwählen
+	 * eines Plättchens im unteren Raster öffnet
 	 */
 	private Raster rasterPopup;
 	
@@ -29,11 +29,11 @@ public class Spielfeld {
 	private Bitmap img;
 	
 	/**
-	 * Die L�sung des Spiels:
-	 * Welches Pl�ttchen geh�rt an welche Position
+	 * Die Lösung des Spiels:
+	 * Welches Plättchen gehört an welche Position
 	 * position --> tile.Id
 	 * Beispiel: solution[4] = 2
-	 *  --> das Pl�ttchen mit der ID 2 muss am Ende auf Position 4 liegen
+	 *  --> das Plättchen mit der ID 2 muss am Ende auf Position 4 liegen
 	 */
 	private int[] solution;
 	
@@ -62,7 +62,7 @@ public class Spielfeld {
 	
 	
 	/**
-	 * Popup schlie�en
+	 * Popup schließen
 	 */
 	public void hidePopup() {
 		// NYI

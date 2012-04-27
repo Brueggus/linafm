@@ -5,21 +5,21 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 /**
- * Die Pl�ttchen werden innerhalb des Rasters angeordnet
+ * Die Plättchen werden innerhalb des Rasters angeordnet
  * 
- * @author Esther Hentrich, Daniel Philipp, Alexander Br�gmann
+ * @author Esther Hentrich, Daniel Philipp, Alexander Brügmann
  * @version 0.1
  *
  */
 public class Raster extends TableLayout {
 	
 	/**
-	 * Enth�lt die Pl�ttchen
+	 * Enthält die Plättchen
 	 */
 	private Tile[] felder;
 	
 	/**
-	 * Gr��e des Rasters
+	 * Größe des Rasters
 	 */
 	private int size = 0;
 	
@@ -51,18 +51,18 @@ public class Raster extends TableLayout {
 	}
 	
 	/**
-	 * Diese Methode baut aus dem Pl�ttchen-Array das Raster auf
+	 * Diese Methode baut aus dem Plättchen-Array das Raster auf
 	 * @param context Context
 	 */
 	public void buildRaster(Context context)
 	{
-		// Wie viele Pl�ttchen in einer Reihe?
+		// Wie viele Plättchen in einer Reihe?
 		int columns = (int)Math.ceil( size / rows);
 		
 		// Insgesamt x Zeilen im Raster
 		setWeightSum((float)rows);
 		
-		// Raster aufbauen und f�llen
+		// Raster aufbauen und füllen
 		int j = 0;
 		for (int i = 0; i < rows; i++)
 		{
@@ -70,24 +70,24 @@ public class Raster extends TableLayout {
 			TableRow tr = new TableRow(context);
 	        tr.setLayoutParams(new LayoutParams(
                     LayoutParams.FILL_PARENT, // Breite
-                    LayoutParams.FILL_PARENT, // H�he
+                    LayoutParams.FILL_PARENT, // Höhe
                     1.0f)); // layout_weight
 			
-	        // Zeile bef�llen
+	        // Zeile befüllen
 			do
 			{
 				tr.addView(felder[j]);
 			} 
 			while ( (++j % columns) != 0 ); // wird false, sobald die Zeile voll ist
 			
-			// Zeile dem Layout hinzuf�gen
+			// Zeile dem Layout hinzufügen
 			this.addView(tr);
 		}
 	}
 	
 	
 	/**
-	 * Pr�ft, ob alle Felder des Rasters mit einem Pl�ttchen belegt ist 
+	 * Prüft, ob alle Felder des Rasters mit einem Plättchen belegt ist 
 	 * @return Raster komplett?
 	 */
 	public boolean isComplete() {
@@ -99,7 +99,7 @@ public class Raster extends TableLayout {
 	}
 	
 	/**
-	 * Pr�ft, ob Raster leer ist 
+	 * Prüft, ob Raster leer ist 
 	 * @return Raster leer?
 	 */
 	public boolean isEmpty() {
@@ -111,8 +111,8 @@ public class Raster extends TableLayout {
 	}
 	
 	/**
-	 * Pl�ttchen an einer bestimmten Position zum Raster hinzuf�gen. -1 �bergeben, um
-	 * Pl�ttchen an der ersten freien Position einzuf�gen
+	 * Plättchen an einer bestimmten Position zum Raster hinzufügen. -1 übergeben, um
+	 * Plättchen an der ersten freien Position einzufügen
 	 * @param tile
 	 * @param position
 	 * @throws ArrayIndexOutOfBoundsException
@@ -123,7 +123,7 @@ public class Raster extends TableLayout {
 			throw new ArrayIndexOutOfBoundsException(R.string.ex_insert_tile_out_of_raster);
 		else if (position == -1)
 			do {
-				// Position hochz�hlen, bis ein freies Feld gefunden wird (oder auch nicht...)
+				// Position hochzählen, bis ein freies Feld gefunden wird (oder auch nicht...)
 				position++;
 				if (position >= size)
 					throw new ArrayIndexOutOfBoundsException(R.string.ex_no_free_space_in_raster);
@@ -135,7 +135,7 @@ public class Raster extends TableLayout {
 	}
 	
 	/**
-	 * Pl�ttchen an einer bestimmten Position l�schen
+	 * Plättchen an einer bestimmten Position löschen
 	 * @param position
 	 * @throws ArrayIndexOutOfBoundsException
 	 */

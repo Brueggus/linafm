@@ -21,7 +21,7 @@ import android.graphics.drawable.BitmapDrawable;
  * Klasse zum Auslesen der Leveldaten aus den XML-Dateien
  * Die Levels werden unter /assets/levels abgelegt!
  * 
- * @author Esther Hentrich, Daniel Philipp, Alexander Br�gmann
+ * @author Esther Hentrich, Daniel Philipp, Alexander Brügmann
  * @version 0.1
  *
  */
@@ -37,7 +37,7 @@ public class LevelHandler {
 	private static final String LEVEL_DESC_FILE = "desc.xml";
 	
 	/**
-	 * Dateiname des gro�en Bildes (oben auf dem Spielfeld)
+	 * Dateiname des großen Bildes (oben auf dem Spielfeld)
 	 * muss ebenfalls immer gleich sein!
 	 */
 	private static final String LEVEL_IMG_FILE = "image.jpg";
@@ -58,10 +58,10 @@ public class LevelHandler {
 	private static int levelCount;
 
 	/**
-	 * Liefert die Namen aller Level f�r das Auswahlmen�
+	 * Liefert die Namen aller Level für das Auswahlmenü
 	 * 
-	 * @param context Context (wird ggf. f�r das Neu-Einlesen der Levelliste ben�tigt)
-	 * @return String-Array, welches die Namen der Level enth�lt
+	 * @param context Context (wird ggf. für das Neu-Einlesen der Levelliste benötigt)
+	 * @return String-Array, welches die Namen der Level enthält
 	 * @throws IOException  Von refreshLevelCaptions() durchgereicht (s.u.)
 	 * @throws XmlPullParserException s.u. Von refreshLevelCaptions() durchgereicht (s.u.)
 	 */
@@ -78,8 +78,8 @@ public class LevelHandler {
 	/**
 	 * Levelliste neu aus XML-Dateien aufbauen
 	 * 
-	 * @param context Context, wird ben�tigt, um auf die assets zugreifen zu k�nnen
-	 * @throws IOException z.B. Datei konnte nicht ge�ffnet/gelesen werden
+	 * @param context Context, wird benötigt, um auf die assets zugreifen zu können
+	 * @throws IOException z.B. Datei konnte nicht geöffnet/gelesen werden
 	 * @throws XmlPullParserException Fehler beim Parsen der XML-Datei
 	 */
 	public static void refreshLevelCaptions(Context context)
@@ -101,16 +101,16 @@ public class LevelHandler {
 		
 		for (int i = 0; i < levelCount; i++)
 		{
-			// f�r jedes Level wird die jeweilige XML-Datei ausgelesen
+			// für jedes Level wird die jeweilige XML-Datei ausgelesen
 			InputStream in = assetMgr.open(LEVEL_SUBDIR + "/" + levels[i] + "/" + LEVEL_DESC_FILE);
 			parser.setInput(in, "UTF-8");
 
 			// Der XmlPullParser geht von oben nach unten durch die XML-Datei.
-			// Trifft er z.B. auf ein �ffnendes Tag, h�lt er an und gibt ein Event aus
+			// Trifft er z.B. auf ein öffnendes Tag, hält er an und gibt ein Event aus
 			eventType = parser.getEventType();
 			
 			while (eventType != XmlPullParser.END_DOCUMENT) {
-				// Sind wir auf ein �ffnendes Tag mit dem Namen "level" gesto�en?
+				// Sind wir auf ein öffnendes Tag mit dem Namen "level" gestoßen?
 				if (eventType == XmlPullParser.START_TAG && parser.getName().equalsIgnoreCase("level"))
 				{
 					// Name des Levels auslesen.
@@ -155,7 +155,7 @@ public class LevelHandler {
 	 */
 	public static Spielfeld loadLevel(int id, Context context) throws XmlPullParserException, IOException
 	{
-		// Diese Variablen m�chten wir belegen
+		// Diese Variablen möchten wir belegen
 		String name = "n/a";
 		Bitmap imageOben;
 		int[] solution = null;
@@ -176,27 +176,27 @@ public class LevelHandler {
 		Bitmap bmpFront, bmpBack;
 		int currTile = 0, totalTiles = 0, finalPos;
 		
-		// wir �ffnen die XML-Datei des gew�nschten Levels
+		// wir öffnen die XML-Datei des gewünschten Levels
 		InputStream in = assetMgr.open(levelDir + LEVEL_DESC_FILE);
 		parser.setInput(in, "UTF-8");
 		
 		// Der XmlPullParser geht von oben nach unten durch die XML-Datei.
-		// Trifft er z.B. auf ein �ffnendes Tag, h�lt er an und gibt ein Event aus
+		// Trifft er z.B. auf ein öffnendes Tag, hält er an und gibt ein Event aus
 		eventType = parser.getEventType();
 		
 		while (eventType != XmlPullParser.END_DOCUMENT) {
-			// Sind wir auf ein �ffnendes Tag mit dem Namen "level" gesto�en?
+			// Sind wir auf ein öffnendes Tag mit dem Namen "level" gestoßen?
 			if (eventType == XmlPullParser.START_TAG)
 			{
 				// Namen des Levels auslesen
 				if (parser.getName().equalsIgnoreCase("level"))
 					name = parser.getAttributeValue(null, "name");
-				// Pl�ttchen laden + erstellen
+				// Plättchen laden + erstellen
 				else if (parser.getName().equalsIgnoreCase("tiles"))
 				{
 					totalTiles = Integer.parseInt(parser.getAttributeValue(null, "total"));
-					// jetzt wissen wir auch, wie gro� unsere Arrays sein m�ssen
-					// (1 Feld pro Pl�ttchen)
+					// jetzt wissen wir auch, wie groß unsere Arrays sein müssen
+					// (1 Feld pro Plättchen)
 					solution = new int[totalTiles];
 					tilesUnten = new Tile[totalTiles];
 					
@@ -208,13 +208,13 @@ public class LevelHandler {
 					imageLoader = assetMgr.open(levelDir + tmpFilename);
 					bmpFront = BitmapFactory.decodeStream(imageLoader);
 					
-					// R�ckseite
+					// Rückseite
 					bmpBack = getNumeralImage(context, currTile);
 					
-					// Pl�ttchen erstellen
+					// Plättchen erstellen
 					tilesUnten[currTile] = new Tile(context, currTile, bmpFront, bmpBack);
 					
-					// Eintrag im L�sungsarray
+					// Eintrag im Lösungsarray
 					finalPos = Integer.parseInt(parser.getAttributeValue(null, "final_pos"));
 					solution[finalPos] = currTile;
 					
@@ -226,7 +226,7 @@ public class LevelHandler {
 			eventType = parser.next();
 		}
 		
-		// Aufr�umen
+		// Aufräumen
 		in.close();		
 		tmpFilename = null;
 		bmpFront = bmpBack = null;		
@@ -234,7 +234,7 @@ public class LevelHandler {
 		//shuffle-Aufruf ab hier möglich!
 		shuffleTiles(tilesUnten);
 		
-		// Array f�r das Popup-Raster mit Dummy-Tiles
+		// Array für das Popup-Raster mit Dummy-Tiles
 		Tile[] tilesPopup = new Tile[totalTiles];
 		
 		for (int i = 0; i < totalTiles; i++)
@@ -243,17 +243,17 @@ public class LevelHandler {
 			tilesPopup[i] = new Tile(context, -1, bmpFront, null);
 		}
 		
-		// Raster bef�llen
+		// Raster befüllen
 		Raster rasterUnten = new Raster(context, tilesUnten);
 		Raster rasterPopup = new Raster(context, tilesPopup);
 		
-		// Bild f�r oben
+		// Bild für oben
 		imageLoader = assetMgr.open(levelDir + LEVEL_IMG_FILE);
 		imageOben = BitmapFactory.decodeStream(imageLoader);
 		// jetzt hat er ausgedient...
 		imageLoader = null;
 		
-		// Spielfeld erstellen + bef�llen
+		// Spielfeld erstellen + befüllen
 		Spielfeld result = new Spielfeld(context, rasterUnten, rasterPopup, imageOben, solution, name);
 		
 		// NYI
@@ -261,14 +261,14 @@ public class LevelHandler {
 	}
 	
 	/**
-	 * Diese Methode liefert das Hintergrundbild (Zahl) f�r die Pl�ttchen zur�ck 
+	 * Diese Methode liefert das Hintergrundbild (Zahl) für die Plättchen zurück 
 	 * 
 	 * @param context Context
-	 * @param numeral die gew�nschte Ziffer
+	 * @param numeral die gewünschte Ziffer
 	 * @return Bitmap das Bild zur Ziffer
 	 */
 	public static Bitmap getNumeralImage(Context context, int numeral){
-		// Alle unsere Bilder... (die 0 bleibt au�en vor)
+		// Alle unsere Bilder... (die 0 bleibt außen vor)
 		final int[] images = {
 	    		/*R.drawable.tile_0,*/ R.drawable.tile_1, R.drawable.tile_2,
 	    		R.drawable.tile_3, R.drawable.tile_4, R.drawable.tile_5,
@@ -293,5 +293,3 @@ public class LevelHandler {
 
 	
 }
-
-
