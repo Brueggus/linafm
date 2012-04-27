@@ -50,7 +50,7 @@ public class Spielfeld {
 	private Context context;
 
 	public Spielfeld(Context context, Raster rUnten, Raster rPopup, Bitmap img, int[] solution, String name) {
-		context = context;
+		this.context = context;
 		rasterUnten = rUnten;
 		rasterPopup = rPopup;
 		this.img = img;
