@@ -245,7 +245,9 @@ public class LevelHandler {
 		
 		// Raster befüllen
 		Raster rasterUnten = new Raster(context, tilesUnten);
+		rasterUnten.setId(R.id.rasterUnten);
 		Raster rasterPopup = new Raster(context, tilesPopup);
+		rasterPopup.setId(R.id.rasterPopup);
 		
 		// Bild für oben
 		imageLoader = assetMgr.open(levelDir + LEVEL_IMG_FILE);

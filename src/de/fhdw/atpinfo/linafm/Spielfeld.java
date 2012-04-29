@@ -88,5 +88,10 @@ public class Spielfeld {
 	public Raster getRasterPopup() {
 		return rasterPopup;
 	}
+	
+	public boolean getPopupOpen()
+	{
+		return popupOpen;
+	}
 
 }

@@ -56,6 +56,13 @@ public class Tile extends ImageButton {
 	}
 	
 	/**
+	 * @return the id
+	 */
+	public int getTileId() {
+		return id;
+	}
+
+	/**
 	 * Plättchen gedreht?
 	 * @return true, falls Plättchen umgedreht
 	 */
@@ -88,7 +95,5 @@ public class Tile extends ImageButton {
 		else
 			this.back = img;
 	}
-	
-	
 
 }

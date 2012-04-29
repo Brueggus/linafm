@@ -79,6 +79,10 @@ public class Spiel extends Activity implements OnClickListener {
 	 * Methode zum Popup wird geöffnet
 	 */
 	private void showPopup() {
+		// Popup schon offen?
+		if ( spielfeld.getPopupOpen() )
+			return;
+		
         // Neuen Dialog initialisieren
 		final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.popup);
@@ -116,8 +120,17 @@ public class Spiel extends Activity implements OnClickListener {
 				showPopup();
 				break;
 		}
-		
 	}
-	
+		
+	public void onTileClick(Tile v)
+	{
+		// Dummy-Tiles sollen nicht klickbar sein
+		if ( v.getTileId() > -1 )
+			return;
+		// befindet sich unser Plättchen im unteren Raster?
+		else if ( ((View)v.getParent()).getId() == R.id.rasterUnten ) {
+			showPopup();
+		}
+	}
 
 }
