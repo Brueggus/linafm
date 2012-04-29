@@ -148,6 +148,20 @@ public class Raster extends TableLayout {
 	}
 	
 	/**
+	 * Liefert die IDs aller Plättchen im Raster zurück
+	 * [position] --> id
+	 * @return Array mit allen IDs
+	 */
+	public int[] getTileIDs() {
+		int[] result = new int[size];
+		
+		for (int i = 0; i < size; i++)
+			result[i] = felder[i].getTileId();
+		
+		return result;
+	}
+	
+	/**
 	 * Setzt für alle Plättchen des Rasters den übergebenen OnClickListener
 	 * @param l OnClickListener
 	 */

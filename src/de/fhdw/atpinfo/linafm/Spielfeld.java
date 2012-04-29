@@ -1,5 +1,7 @@
 package de.fhdw.atpinfo.linafm;
 
+import java.util.Arrays;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 
@@ -95,6 +97,17 @@ public class Spielfeld {
 	public boolean getPopupOpen()
 	{
 		return popupOpen;
+	}
+	
+	/**
+	 * Prüft, ob alle Plätchen im Popup auf der richtigen Position liegen
+	 * @return true, wenn Level korrekt gelöst wurde
+	 */
+	private boolean vaildate() {
+		if ( !rasterPopup.isComplete() )
+			return false;
+		
+	return Arrays.equals(solution, rasterPopup.getTileIDs());
 	}
 
 }
