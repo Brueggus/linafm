@@ -62,14 +62,6 @@ public class Spielfeld {
 		rasterUnten.buildRaster(context);
 	}
 	
-	
-	/**
-	 * Popup schließen
-	 */
-	public void hidePopup() {
-		// NYI
-	}
-
 	/**
 	 * @return the img
 	 */

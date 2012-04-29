@@ -30,6 +30,15 @@ public class Spiel extends Activity implements OnClickListener {
 	private int levelId;
 	
 	private Button mBtnPopup;
+	private Dialog dialog;
+	
+	// Counter für die einmalige Popup-Initialisierung
+	private int init = 0;
+	
+	/**
+	 * Ist das Popup gerade aktiv?
+	 */
+	private boolean popupOpen = false;
 
 
 	/**
@@ -73,6 +82,8 @@ public class Spiel extends Activity implements OnClickListener {
 		
 		mBtnPopup = (Button) findViewById(R.id.btnPopup);
 		mBtnPopup.setOnClickListener(this);
+		
+		dialog = new Dialog(context);
 	}
 	
 	
@@ -81,25 +92,20 @@ public class Spiel extends Activity implements OnClickListener {
 	 * 
 	 * Methode zum Popup wird geöffnet
 	 */
-	private void showPopup() {
+	private void drawPopupDialog() {
 		// Popup schon offen?
-		if ( spielfeld.getPopupOpen() )
+		if ( popupOpen )
 			return;
 		
         // Neuen Dialog initialisieren
-		final Dialog dialog = new Dialog(context);
+		
         dialog.setContentView(R.layout.popup);
         dialog.setTitle(R.string.popup);
         dialog.setCancelable(true);
         
         FrameLayout fl = (FrameLayout) dialog.findViewById(R.id.popup);
         Raster popUpRaster = spielfeld.getRasterPopup();
-        popUpRaster.removeAllViews();
-        
-        // hier fehlt die Überprüfung, ob Raster bereits schonmal gemalt wurde.
-        // dies ist der Fall, wenn das Popup schonmal geöffnet wurde
-        // derzeit -> Exception
-        
+
         // tableLayout wird noch nicht angezeigt, warum?
         popUpRaster.buildRaster(dialog.getContext());
 
@@ -111,15 +117,20 @@ public class Spiel extends Activity implements OnClickListener {
                 dialog.cancel();
             }
         });
-   
+        
         dialog.show();
+   
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 			case R.id.btnPopup:
-				showPopup();
+				if(popupOpen) {
+					hidePopup();
+				} else {
+					showPopup();
+				}
 				break;
 		}
 		
@@ -139,4 +150,27 @@ public class Spiel extends Activity implements OnClickListener {
 		if ( ((View)v.getParent().getParent()).getId() == R.id.rasterUnten  || v.getTileId() != -1 )
 			showPopup();
 	}
+	
+	/**
+	 * Popup schließen
+	 */
+	public void hidePopup() {
+			dialog.hide();
+			popupOpen = false;
+	}
+	
+	/**
+	 * Popup öffnen
+	 * beim erstmaligen Aufruf wird das Popup über drapPopupDialog() initialisiert
+	 */
+	public void showPopup() {
+		if(init==0) {
+			drawPopupDialog();
+			init++;
+		} else {
+			dialog.show();
+			popupOpen = true;
+		}
+	}
+
 }
