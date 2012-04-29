@@ -115,7 +115,6 @@ public class Spiel extends Activity implements OnClickListener {
         dialog.show();
 	}
 
-
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -128,14 +127,16 @@ public class Spiel extends Activity implements OnClickListener {
 		if ( v instanceof Tile )
 			onTileClick( (Tile)v );
 	}
-		
-	public void onTileClick(Tile v)
-	{
+
+	/**
+	 * Wird beim Klicken eines Plättchens aufgerufen
+	 * @param v das geklickte Plättchen
+	 */
+	private void onTileClick(Tile v) {
 		// befindet sich unser Plättchen im unteren Raster?
 		// ( getParent():  Tile --> TableRow --> Raster ),
 		// Dummy-Tiles sollen nicht klickbar sein
 		if ( ((View)v.getParent().getParent()).getId() == R.id.rasterUnten  || v.getTileId() != -1 )
 			showPopup();
 	}
-
 }
