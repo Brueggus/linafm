@@ -5,9 +5,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 
 /**
- * "Toolbox" mit nützlichen Methoden
+ * "Toolbox" mit nÃ¼tzlichen Methoden
  * 
- * @author Esther Hentrich, Daniel Philipp, Alexander Brügmann
+ * @author Esther Hentrich, Daniel Philipp, Alexander BrÃ¼gmann
  * @version 0.1
  * 
  */

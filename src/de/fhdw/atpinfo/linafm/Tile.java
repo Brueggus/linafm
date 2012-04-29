@@ -6,32 +6,32 @@ import android.widget.ImageButton;
 import android.widget.TableRow.LayoutParams;
 
 /**
- * Klasse Plättchen, abgeleitet vom ImageButton
- * Die werden wir später hin und her drehen!
+ * Klasse PlÃ¤ttchen, abgeleitet vom ImageButton
+ * Die werden wir spÃ¤ter hin und her drehen!
  * 
- * @author Esther Hentrich, Daniel Philipp, Alexander Brügmann
+ * @author Esther Hentrich, Daniel Philipp, Alexander BrÃ¼gmann
  * @version 0.1
  *
  */
 public class Tile extends ImageButton {
 	
 	/**
-	 * Id des Plättchens: Wird pro Spiel von 0 bis x vergeben
+	 * Id des PlÃ¤ttchens: Wird pro Spiel von 0 bis x vergeben
 	 */
 	private int id;
 	
 	/**
-	 * Bild für die Vorderseite
+	 * Bild fÃ¼r die Vorderseite
 	 */
 	private Bitmap front;
 	
 	/**
-	 * Bild für die Rückseite
+	 * Bild fÃ¼r die RÃ¼ckseite
 	 */
 	private Bitmap back;
 	
 	/**
-	 * Ist das Plättchen umgedreht (Rückseite oben?)
+	 * Ist das PlÃ¤ttchen umgedreht (RÃ¼ckseite oben?)
 	 */
 	private boolean turned = false;
 
@@ -44,7 +44,7 @@ public class Tile extends ImageButton {
 		setImageBitmap(front);
 
 		// Breite auf 0 Pixel festgesetzt, da anderenfalls die Buttons nicht
-		// gleichmäßig in der Zeile verteilt werden.
+		// gleichmÃ¤ÃŸig in der Zeile verteilt werden.
 		LayoutParams params = new LayoutParams(
                 0, // width
                 LayoutParams.MATCH_PARENT, // height 
@@ -56,15 +56,15 @@ public class Tile extends ImageButton {
 	}
 	
 	/**
-	 * Plättchen gedreht?
-	 * @return true, falls Plättchen umgedreht
+	 * PlÃ¤ttchen gedreht?
+	 * @return true, falls PlÃ¤ttchen umgedreht
 	 */
 	public boolean isTurned() {
 		return turned;
 	}
 
 	/**
-	 * Plättchen umdrehen
+	 * PlÃ¤ttchen umdrehen
 	 */
 	public void turnAround()
 	{
@@ -77,10 +77,10 @@ public class Tile extends ImageButton {
 	}
 
 	/**
-	 * Methode um das Bild eines Plättchens zu ändern
+	 * Methode um das Bild eines PlÃ¤ttchens zu Ã¤ndern
 	 * 
 	 * @param img Bild
-	 * @param back true setzen um Rückseite zu ändern
+	 * @param back true setzen um RÃ¼ckseite zu Ã¤ndern
 	 */
 	public void setImage(Bitmap img, boolean back) {
 		if (!back)
