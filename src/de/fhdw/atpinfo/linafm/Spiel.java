@@ -66,7 +66,10 @@ public class Spiel extends Activity implements OnClickListener {
 		
 		// Raster unten
 		FrameLayout frame = (FrameLayout)findViewById(R.id.tilesUnten);
-		frame.addView(spielfeld.getRasterUnten());
+		
+		Raster rUnten = spielfeld.getRasterUnten();
+		rUnten.setOnClickListenerForAllTiles(this);
+		frame.addView(rUnten);
 		
 		mBtnPopup = (Button) findViewById(R.id.btnPopup);
 		mBtnPopup.setOnClickListener(this);
@@ -120,17 +123,19 @@ public class Spiel extends Activity implements OnClickListener {
 				showPopup();
 				break;
 		}
+		
+		// Wurde ein Plättchen geklickt?
+		if ( v instanceof Tile )
+			onTileClick( (Tile)v );
 	}
 		
 	public void onTileClick(Tile v)
 	{
-		// Dummy-Tiles sollen nicht klickbar sein
-		if ( v.getTileId() > -1 )
-			return;
 		// befindet sich unser Plättchen im unteren Raster?
-		else if ( ((View)v.getParent()).getId() == R.id.rasterUnten ) {
+		// ( getParent():  Tile --> TableRow --> Raster ),
+		// Dummy-Tiles sollen nicht klickbar sein
+		if ( ((View)v.getParent().getParent()).getId() == R.id.rasterUnten  || v.getTileId() != -1 )
 			showPopup();
-		}
 	}
 
 }

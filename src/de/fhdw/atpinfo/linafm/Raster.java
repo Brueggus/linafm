@@ -147,5 +147,13 @@ public class Raster extends TableLayout {
 		felder[position] = null;
 	}
 	
+	/**
+	 * Setzt für alle Plättchen des Rasters den übergebenen OnClickListener
+	 * @param l OnClickListener
+	 */
+	public void setOnClickListenerForAllTiles(OnClickListener l) {
+		for ( Tile t : felder )
+			t.setOnClickListener(l);
+	}
 	
 }

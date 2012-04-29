@@ -89,6 +89,9 @@ public class Spielfeld {
 		return rasterPopup;
 	}
 	
+	/**
+	 * @return true, falls Popup geöffnet ist
+	 */
 	public boolean getPopupOpen()
 	{
 		return popupOpen;

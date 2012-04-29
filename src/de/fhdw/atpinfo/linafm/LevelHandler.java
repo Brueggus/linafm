@@ -257,8 +257,7 @@ public class LevelHandler {
 		
 		// Spielfeld erstellen + befüllen
 		Spielfeld result = new Spielfeld(context, rasterUnten, rasterPopup, imageOben, solution, name);
-		
-		// NYI
+
 		return result;
 	}
 	
