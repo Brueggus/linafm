@@ -10,10 +10,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-
+import android.widget.LinearLayout;
 
 /**
  * Diese Klasse beinhaltet alles, was zum aktuellen Spiel gehört.
@@ -118,9 +119,6 @@ public class Spiel extends Activity implements OnClickListener {
                 dialog.cancel();
             }
         });
-        
-        dialog.show();
-   
 	}
 
 	@Override
@@ -168,10 +166,25 @@ public class Spiel extends Activity implements OnClickListener {
 		if(init==0) {
 			drawPopupDialog();
 			init++;
-		} else {
-			dialog.show();
-			popupOpen = true;
 		}
+		
+		// Achtung, Pfusch! Das geht bestimmt auch irgendwie schöner...
+		// Größe des Popups an das untere Raster angleichen
+		FrameLayout fl = (FrameLayout) dialog.findViewById(R.id.popup); 
+		// Höhe des Containers für das Popup-Raster setzen
+		fl.setLayoutParams(new LinearLayout.LayoutParams(
+				LayoutParams.FILL_PARENT, 
+				spielfeld.getRasterUnten().getHeight() // Höhe unteres Raster
+		));
+		// Breite des Popup-Fensters setzen
+		dialog.getWindow().setLayout(
+				spielfeld.getRasterUnten().getWidth(), // Breite unteres Raster
+				LayoutParams.WRAP_CONTENT
+		);
+		// -- Pfusch Ende --
+		
+		dialog.show();
+		popupOpen = true;
 	}
 
 }
