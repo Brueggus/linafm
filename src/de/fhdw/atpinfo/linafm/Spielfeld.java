@@ -2,7 +2,6 @@ package de.fhdw.atpinfo.linafm;
 
 import java.util.Arrays;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 
 /**
@@ -49,10 +48,7 @@ public class Spielfeld {
 	 */
 	private boolean popupOpen = false;
 
-	private Context context;
-
-	public Spielfeld(Context context, Raster rUnten, Raster rPopup, Bitmap img, int[] solution, String name) {
-		this.context = context;
+	public Spielfeld(Raster rUnten, Raster rPopup, Bitmap img, int[] solution, String name) {
 		rasterUnten = rUnten;
 		rasterPopup = rPopup;
 		this.img = img;

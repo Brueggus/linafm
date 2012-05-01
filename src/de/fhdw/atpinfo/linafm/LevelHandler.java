@@ -256,7 +256,7 @@ public class LevelHandler {
 		imageLoader = null;
 		
 		// Spielfeld erstellen + befüllen
-		Spielfeld result = new Spielfeld(context, rasterUnten, rasterPopup, imageOben, solution, name);
+		Spielfeld result = new Spielfeld(rasterUnten, rasterPopup, imageOben, solution, name);
 
 		return result;
 	}
