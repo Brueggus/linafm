@@ -30,10 +30,7 @@ public class Spiel extends Activity implements OnClickListener {
 	private int levelId;
 	
 	private Button mBtnPopup;
-	private Dialog dialog;
-	
-	// Counter für die einmalige Popup-Initialisierung
-	private int init = 0;
+	private Dialog dialog = null;
 	
 	/**
 	 * Ist das Popup gerade aktiv?
@@ -83,7 +80,7 @@ public class Spiel extends Activity implements OnClickListener {
 		mBtnPopup = (Button) findViewById(R.id.btnPopup);
 		mBtnPopup.setOnClickListener(this);
 		
-		dialog = new Dialog(context);
+		
 	}
 	
 	
@@ -92,12 +89,13 @@ public class Spiel extends Activity implements OnClickListener {
 	 * 
 	 * Methode zum Popup wird geöffnet
 	 */
-	private void drawPopupDialog() {
+	private void initPopupDialog() {
 		// Popup schon offen?
 		if ( popupOpen )
 			return;
 		
         // Neuen Dialog initialisieren
+		dialog = new Dialog(context);
 		
         dialog.setContentView(R.layout.popup);
         dialog.setTitle(R.string.popup);
@@ -109,6 +107,8 @@ public class Spiel extends Activity implements OnClickListener {
         // tableLayout wird noch nicht angezeigt, warum?
         popUpRaster.buildRaster(dialog.getContext());
 
+        fl.addView(popUpRaster);
+        
         // Abbrechen-Button
         Button button = (Button) dialog.findViewById(R.id.btnAbbruch);
         button.setOnClickListener(new OnClickListener() {
@@ -147,8 +147,9 @@ public class Spiel extends Activity implements OnClickListener {
 		// befindet sich unser Plättchen im unteren Raster?
 		// ( getParent():  Tile --> TableRow --> Raster ),
 		// Dummy-Tiles sollen nicht klickbar sein
-		if ( ((View)v.getParent().getParent()).getId() == R.id.rasterUnten  || v.getTileId() != -1 )
+		if ( ((View)v.getParent().getParent()).getId() == R.id.rasterUnten  || v.getTileId() != -1 ) {
 			showPopup();
+		}
 	}
 	
 	/**
@@ -164,9 +165,10 @@ public class Spiel extends Activity implements OnClickListener {
 	 * beim erstmaligen Aufruf wird das Popup über drapPopupDialog() initialisiert
 	 */
 	public void showPopup() {
-		if(init==0) {
-			drawPopupDialog();
-			init++;
+		
+		// einmalige Popup-Initialisierung
+		if(dialog == null) {
+			initPopupDialog();
 		} else {
 			dialog.show();
 			popupOpen = true;

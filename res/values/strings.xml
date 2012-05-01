@@ -11,5 +11,8 @@
     <string name="show_popup">Popup anzeigen</string>
     <string name="popup">Wähle weise</string>
     <string name="close">PopUp schließen</string>
+    <string name="hint">Tipp anzeigen</string>
+    
+    
 
 </resources>

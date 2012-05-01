@@ -2,6 +2,8 @@ package de.fhdw.atpinfo.linafm;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.PorterDuff.Mode;
 import android.widget.ImageButton;
 import android.widget.TableRow.LayoutParams;
 
@@ -95,5 +97,25 @@ public class Tile extends ImageButton {
 		else
 			this.back = img;
 	}
+	
+	/**
+	 * Setze einen leeren Status für das Tile.
+	 */
+	public void setStateEmpty() {
+		setColorFilter(Color.GRAY, Mode.MULTIPLY);
+	}
+	
+	/**
+	 * Versetze das Tile in den Ausgangsstatus.
+	 */
+	public void setStateNormal() {
+		setColorFilter(Color.TRANSPARENT, Mode.MULTIPLY);
+	}
 
+	/**
+	 * Markiere das Tile als ausgewählt.
+	 */
+	public void setStateSelected() {
+		setColorFilter(Color.GREEN, Mode.MULTIPLY);
+	}
 }

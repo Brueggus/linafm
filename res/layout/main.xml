@@ -24,10 +24,10 @@
 
     <Button
         android:id="@+id/end"
-        android:layout_width="345dp"
-        android:layout_height="308dp"
-        android:layout_x="765dp"
-        android:layout_y="336dp"
+        android:layout_width="280dp"
+        android:layout_height="300dp"
+        android:layout_x="610dp"
+        android:layout_y="250dp"
         android:background="@android:color/transparent"
         android:text="" />
 

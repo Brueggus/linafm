@@ -53,6 +53,10 @@ public class LinafmActivity extends Activity implements OnClickListener {
         
         mBtnPlay = (Button)findViewById(R.id.play);
         mBtnEnd = (Button)findViewById(R.id.end);
+        
+        //Button anzeigen fuer Positionierung
+        //mBtnEnd.setBackgroundColor(Color.GREEN);
+        
         mBtnPlay.setOnClickListener(this);
         mBtnEnd.setOnClickListener(this);
     }
