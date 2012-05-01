@@ -88,6 +88,7 @@ public class Spiel extends Activity implements OnClickListener {
         dialog.setContentView(R.layout.popup);
         dialog.setTitle(R.string.popup);
         dialog.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(true);
         
         FrameLayout fl = (FrameLayout) dialog.findViewById(R.id.popup);
         Raster popUpRaster = spielfeld.getRasterPopup();
