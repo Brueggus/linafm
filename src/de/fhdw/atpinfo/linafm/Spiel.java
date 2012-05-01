@@ -32,12 +32,6 @@ public class Spiel extends Activity implements OnClickListener {
 	
 	private Button mBtnPopup;
 	private Dialog mDlgPopup;
-	
-	/**
-	 * Ist das Popup gerade aktiv?
-	 */
-	private boolean popupOpen = false;
-
 
 	/**
 	 * Wird aufgerufen, sobald ein neues Spiel erstellt wird
@@ -106,7 +100,6 @@ public class Spiel extends Activity implements OnClickListener {
         @Override
             public void onClick(View v) {
                 dialog.cancel();
-                popupOpen = false;
             }
         });
         
@@ -117,7 +110,7 @@ public class Spiel extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 			case R.id.btnPopup:
-				if(popupOpen) {
+				if( mDlgPopup.isShowing() ) {
 					hidePopup();
 				} else {
 					showPopup();
@@ -147,7 +140,6 @@ public class Spiel extends Activity implements OnClickListener {
 	 */
 	public void hidePopup() {
 			mDlgPopup.hide();
-			popupOpen = false;
 	}
 	
 	/**
@@ -155,7 +147,7 @@ public class Spiel extends Activity implements OnClickListener {
 	 */
 	public void showPopup() {
 		// Popup schon offen?
-		if ( popupOpen )
+		if ( mDlgPopup.isShowing() )
 			return;
 		
 		// Achtung, Pfusch! Das geht bestimmt auch irgendwie schöner...
@@ -174,7 +166,6 @@ public class Spiel extends Activity implements OnClickListener {
 		// -- Pfusch Ende --
 		
 		mDlgPopup.show();
-		popupOpen = true;
 	}
 
 }
