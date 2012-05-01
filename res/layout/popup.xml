@@ -12,13 +12,28 @@
         android:layout_weight="1">
     </FrameLayout>
     
-    <Button 
-        android:id="@+id/btnAbbruch" 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/close" 
-        />
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+    >
+	    <Button 
+	        android:id="@+id/btnAbbruch" 
+	        android:layout_width="wrap_content"
+	        android:layout_height="fill_parent"
+ 			android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+	        android:text="@string/close" 
+	        />
+	    
+	    <Button
+            android:id="@+id/btnTipp"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/btnAbbruch"
+            android:text="@string/tipp" />
+	
+	</RelativeLayout>
+	    
 
 </LinearLayout>
