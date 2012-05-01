@@ -105,8 +105,9 @@ public class Spiel extends Activity implements OnClickListener {
         
         FrameLayout fl = (FrameLayout) dialog.findViewById(R.id.popup);
         Raster popUpRaster = spielfeld.getRasterPopup();
+        // Raster zum FrameLayout hinzufügen
+        fl.addView(popUpRaster);
 
-        // tableLayout wird noch nicht angezeigt, warum?
         popUpRaster.buildRaster(dialog.getContext());
 
         // Abbrechen-Button
