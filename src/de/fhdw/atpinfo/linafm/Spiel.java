@@ -10,10 +10,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-
+import android.widget.LinearLayout;
 
 /**
  * Diese Klasse beinhaltet alles, was zum aktuellen Spiel gehört.
@@ -30,13 +31,7 @@ public class Spiel extends Activity implements OnClickListener {
 	private int levelId;
 	
 	private Button mBtnPopup;
-	private Dialog dialog = null;
-	
-	/**
-	 * Ist das Popup gerade aktiv?
-	 */
-	private boolean popupOpen = false;
-
+	private Dialog mDlgPopup;
 
 	/**
 	 * Wird aufgerufen, sobald ein neues Spiel erstellt wird
@@ -72,41 +67,32 @@ public class Spiel extends Activity implements OnClickListener {
 		
 		// Raster unten
 		FrameLayout frame = (FrameLayout)findViewById(R.id.tilesUnten);
-		
 		Raster rUnten = spielfeld.getRasterUnten();
 		rUnten.setOnClickListenerForAllTiles(this);
 		frame.addView(rUnten);
 		
+		// Popup generieren
+		mDlgPopup = drawPopupDialog();
+		
 		mBtnPopup = (Button) findViewById(R.id.btnPopup);
 		mBtnPopup.setOnClickListener(this);
-		
-		
 	}
 	
 	
 	/**
-	 * Popup öffnen
-	 * 
-	 * Methode zum Popup wird geöffnet
+	 * Popup generieren
 	 */
-	private void initPopupDialog() {
-		// Popup schon offen?
-		if ( popupOpen )
-			return;
-		
+	private Dialog drawPopupDialog() {
         // Neuen Dialog initialisieren
-		dialog = new Dialog(context);
-		
+		final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.popup);
         dialog.setTitle(R.string.popup);
         dialog.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(true);
         
         FrameLayout fl = (FrameLayout) dialog.findViewById(R.id.popup);
         Raster popUpRaster = spielfeld.getRasterPopup();
-
-        // tableLayout wird noch nicht angezeigt, warum?
-        popUpRaster.buildRaster(dialog.getContext());
-
+        // Raster zum FrameLayout hinzufügen
         fl.addView(popUpRaster);
         
         // Abbrechen-Button
@@ -118,15 +104,14 @@ public class Spiel extends Activity implements OnClickListener {
             }
         });
         
-        dialog.show();
-   
+        return dialog;
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 			case R.id.btnPopup:
-				if(popupOpen) {
+				if( mDlgPopup.isShowing() ) {
 					hidePopup();
 				} else {
 					showPopup();
@@ -156,23 +141,33 @@ public class Spiel extends Activity implements OnClickListener {
 	 * Popup schließen
 	 */
 	public void hidePopup() {
-			dialog.hide();
-			popupOpen = false;
+			mDlgPopup.hide();
 	}
 	
 	/**
 	 * Popup öffnen
-	 * beim erstmaligen Aufruf wird das Popup über drapPopupDialog() initialisiert
 	 */
 	public void showPopup() {
+		// Popup schon offen?
+		if ( mDlgPopup.isShowing() )
+			return;
 		
-		// einmalige Popup-Initialisierung
-		if(dialog == null) {
-			initPopupDialog();
-		} else {
-			dialog.show();
-			popupOpen = true;
-		}
+		// Achtung, Pfusch! Das geht bestimmt auch irgendwie schöner...
+		// Größe des Popups an das untere Raster angleichen
+		FrameLayout fl = (FrameLayout) mDlgPopup.findViewById(R.id.popup); 
+		// Höhe des Containers für das Popup-Raster setzen
+		fl.setLayoutParams(new LinearLayout.LayoutParams(
+				LayoutParams.FILL_PARENT, 
+				spielfeld.getRasterUnten().getHeight() // Höhe unteres Raster
+		));
+		// Breite des Popup-Fensters setzen
+		mDlgPopup.getWindow().setLayout(
+				spielfeld.getRasterUnten().getWidth(), // Breite unteres Raster
+				LayoutParams.WRAP_CONTENT
+		);
+		// -- Pfusch Ende --
+		
+		mDlgPopup.show();
 	}
 
 }
