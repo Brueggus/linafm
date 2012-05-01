@@ -31,10 +31,7 @@ public class Spiel extends Activity implements OnClickListener {
 	private int levelId;
 	
 	private Button mBtnPopup;
-	private Dialog dialog;
-	
-	// Counter für die einmalige Popup-Initialisierung
-	private int init = 0;
+	private Dialog mDlgPopup;
 	
 	/**
 	 * Ist das Popup gerade aktiv?
@@ -76,30 +73,24 @@ public class Spiel extends Activity implements OnClickListener {
 		
 		// Raster unten
 		FrameLayout frame = (FrameLayout)findViewById(R.id.tilesUnten);
-		
 		Raster rUnten = spielfeld.getRasterUnten();
 		rUnten.setOnClickListenerForAllTiles(this);
 		frame.addView(rUnten);
 		
+		// Popup generieren
+		mDlgPopup = drawPopupDialog();
+		
 		mBtnPopup = (Button) findViewById(R.id.btnPopup);
 		mBtnPopup.setOnClickListener(this);
-		
-		dialog = new Dialog(context);
 	}
 	
 	
 	/**
-	 * Popup öffnen
-	 * 
-	 * Methode zum Popup wird geöffnet
+	 * Popup generieren
 	 */
-	private void drawPopupDialog() {
-		// Popup schon offen?
-		if ( popupOpen )
-			return;
-		
+	private Dialog drawPopupDialog() {
         // Neuen Dialog initialisieren
-		
+		final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.popup);
         dialog.setTitle(R.string.popup);
         dialog.setCancelable(true);
@@ -109,16 +100,17 @@ public class Spiel extends Activity implements OnClickListener {
         // Raster zum FrameLayout hinzufügen
         fl.addView(popUpRaster);
 
-        popUpRaster.buildRaster(dialog.getContext());
-
         // Abbrechen-Button
         Button button = (Button) dialog.findViewById(R.id.btnAbbruch);
         button.setOnClickListener(new OnClickListener() {
         @Override
             public void onClick(View v) {
                 dialog.cancel();
+                popupOpen = false;
             }
         });
+        
+        return dialog;
 	}
 
 	@Override
@@ -154,36 +146,34 @@ public class Spiel extends Activity implements OnClickListener {
 	 * Popup schließen
 	 */
 	public void hidePopup() {
-			dialog.hide();
+			mDlgPopup.hide();
 			popupOpen = false;
 	}
 	
 	/**
 	 * Popup öffnen
-	 * beim erstmaligen Aufruf wird das Popup über drapPopupDialog() initialisiert
 	 */
 	public void showPopup() {
-		if(init==0) {
-			drawPopupDialog();
-			init++;
-		}
+		// Popup schon offen?
+		if ( popupOpen )
+			return;
 		
 		// Achtung, Pfusch! Das geht bestimmt auch irgendwie schöner...
 		// Größe des Popups an das untere Raster angleichen
-		FrameLayout fl = (FrameLayout) dialog.findViewById(R.id.popup); 
+		FrameLayout fl = (FrameLayout) mDlgPopup.findViewById(R.id.popup); 
 		// Höhe des Containers für das Popup-Raster setzen
 		fl.setLayoutParams(new LinearLayout.LayoutParams(
 				LayoutParams.FILL_PARENT, 
 				spielfeld.getRasterUnten().getHeight() // Höhe unteres Raster
 		));
 		// Breite des Popup-Fensters setzen
-		dialog.getWindow().setLayout(
+		mDlgPopup.getWindow().setLayout(
 				spielfeld.getRasterUnten().getWidth(), // Breite unteres Raster
 				LayoutParams.WRAP_CONTENT
 		);
 		// -- Pfusch Ende --
 		
-		dialog.show();
+		mDlgPopup.show();
 		popupOpen = true;
 	}
 

@@ -38,7 +38,7 @@ public class Raster extends TableLayout {
 		felder = new Tile[size];
 		this.size = size;
 		
-//		buildRaster(context);
+		buildRaster(context);
 	}
 	
 	public Raster(Context context, Tile[] tiles) {
@@ -47,7 +47,7 @@ public class Raster extends TableLayout {
 		felder = tiles;
 		size = felder.length;
 		
-//		buildRaster(context);
+		buildRaster(context);
 	}
 	
 	/**

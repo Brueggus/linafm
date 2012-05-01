@@ -58,8 +58,6 @@ public class Spielfeld {
 		this.img = img;
 		this.solution = solution;
 		this.name = name;
-		
-		rasterUnten.buildRaster(context);
 	}
 	
 	/**
