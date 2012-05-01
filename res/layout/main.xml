@@ -15,10 +15,10 @@
 
     <Button
         android:id="@+id/play"
-        android:layout_width="325dp"
+        android:layout_width="255dp"
         android:layout_height="288dp"
-        android:layout_x="266dp"
-        android:layout_y="376dp"
+        android:layout_x="260dp"
+        android:layout_y="270dp"
         android:background="@android:color/transparent"
         android:text="" />
 
