@@ -102,20 +102,20 @@ public class Tile extends ImageButton {
 	 * Setze einen leeren Status für das Tile.
 	 */
 	public void setStateEmpty() {
-		setColorFilter(Color.GRAY, Mode.MULTIPLY);
+		getBackground().setColorFilter(Color.GRAY, Mode.MULTIPLY);
 	}
 	
 	/**
 	 * Versetze das Tile in den Ausgangsstatus.
 	 */
 	public void setStateNormal() {
-		setColorFilter(Color.TRANSPARENT, Mode.MULTIPLY);
+		getBackground().setColorFilter(Color.TRANSPARENT, Mode.MULTIPLY);
 	}
 
 	/**
 	 * Markiere das Tile als ausgewählt.
 	 */
 	public void setStateSelected() {
-		setColorFilter(Color.GREEN, Mode.MULTIPLY);
+		getBackground().setColorFilter(Color.GREEN, Mode.MULTIPLY);
 	}
 }
