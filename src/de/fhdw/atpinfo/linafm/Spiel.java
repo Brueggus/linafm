@@ -8,6 +8,9 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -25,13 +28,16 @@ import android.widget.LinearLayout;
  *
  */
 public class Spiel extends Activity implements OnClickListener {
-	
+
 	private Spielfeld spielfeld;
 	private Context context;
 	private int levelId;
 	
 	private Button mBtnPopup;
 	private Dialog mDlgPopup;
+	
+	// Optionsmenü Credits
+	static final int DIALOG_CREDITS_ID = 0; 
 
 	/**
 	 * Wird aufgerufen, sobald ein neues Spiel erstellt wird
@@ -169,5 +175,43 @@ public class Spiel extends Activity implements OnClickListener {
 		
 		mDlgPopup.show();
 	}
+	
+	/**
+	 * Optionsmenü erzeugen
+	 */
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.layout.optionmenu, menu);
+		return true;
+	}
+
+	/**
+	 * Erlaubt uns die Items des Optionsmenüs auszuwählen
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Abhandeln des Item-Auswahl (derzeit nur ein Item vorhanden)
+		switch(item.getItemId()) {
+		case R.id.credits:
+			createOptionDialog(DIALOG_CREDITS_ID);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+	
+	public Dialog createOptionDialog(int id) {
+		Dialog dialog = null;
+		switch(id) {
+		case DIALOG_CREDITS_ID:
+			// NYI, hier muss das Text-Popup hin
+			break;
+		default: 
+				dialog = null;
+		}
+		return dialog;
+	}
+
 
 }
