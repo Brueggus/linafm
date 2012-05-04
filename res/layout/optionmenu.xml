@@ -3,4 +3,7 @@
     <item android:id="@+id/credits"
           android:title="@string/credits"
           android:showAsAction="ifRoom"/>
+    <item android:id="@+id/help"
+          android:title="@string/help"
+          android:showAsAction="ifRoom"/>
 </menu>

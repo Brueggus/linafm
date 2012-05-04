@@ -1,10 +1,16 @@
 package de.fhdw.atpinfo.linafm;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -31,6 +37,10 @@ public class LinafmActivity extends Activity implements OnClickListener {
 	
 	private Context context;
 	private Button mBtnPlay, mBtnEnd;
+	
+	// Optionsmenü Credits
+	static final int DIALOG_CREDITS_ID = 0;
+	static final int DIALOG_HELP_ID = 1; 
 
     /**
      * Hier fängt alles an...
@@ -160,4 +170,55 @@ public class LinafmActivity extends Activity implements OnClickListener {
 
 		startActivity(i);
 	}
+	
+	
+	/**
+	 * Optionsmenü erzeugen
+	 */
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.layout.optionmenu, menu);
+		return true;
+	}
+
+	/**
+	 * Erlaubt uns die Items des Optionsmenüs auszuwählen
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Abhandeln des Item-Auswahl (derzeit nur ein Item vorhanden)
+		switch(item.getItemId()) {
+		case R.id.credits:
+			createOptionDialog(DIALOG_CREDITS_ID);
+			return true;
+		case R.id.help: 
+			createOptionDialog(DIALOG_HELP_ID);
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+	
+	public Dialog createOptionDialog(int id) {
+		AlertDialog dialog = null;
+		switch(id) {
+		case DIALOG_CREDITS_ID:
+			LayoutInflater li = LayoutInflater.from(context);
+			View view = li.inflate(R.layout.simpledialog, null);
+
+			AlertDialog.Builder builder = new AlertDialog.Builder(context);
+			builder.setTitle("Credits");
+			builder.setView(view);
+			builder.setMessage(Html.fromHtml("<b><u>Linafm's Entwickler</b></u><br><br>Alexander Brückmann - <i>Code & Konzeption</i><br>Daniel Philipp - <i>Design & Konzeption</i><br>Esther Hentrich - <i>Code & Konzeption</i>"));
+			builder.show();
+			break;
+		case DIALOG_HELP_ID:
+			// NYI , aber analog zum Credits AlertDialog, Text entwerfen, anpassen
+			break;
+		default: 
+			dialog = null;
+		}
+		return dialog;
+	}
+
 }
