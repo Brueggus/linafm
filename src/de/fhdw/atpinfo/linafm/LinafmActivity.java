@@ -29,10 +29,6 @@ import android.widget.ListView;
  * @version 0.1
  *
  */
-/**
- * @author brueggi
- *
- */
 public class LinafmActivity extends Activity implements OnClickListener {
 	
 	private Context context;
@@ -57,7 +53,7 @@ public class LinafmActivity extends Activity implements OnClickListener {
         }
         catch (Exception ex) {
         	Tools.ShowErrorMessage(getString(android.R.string.dialog_alert_title), 
-        			"Es ist ein Fehler beim Einlesen der Levelliste aufgetreten.", context);
+        			getString(R.string.error_reading_level_list), context);
         }
         setContentView(R.layout.main);
         
@@ -86,7 +82,7 @@ public class LinafmActivity extends Activity implements OnClickListener {
         }
         catch (Exception ex) {
         	Tools.ShowErrorMessage(getString(android.R.string.dialog_alert_title), 
-        			"Es ist ein Fehler beim Einlesen der Levelliste aufgetreten.", context);
+        			getString(R.string.error_reading_level_list), context);
         }
 	}
 
@@ -126,7 +122,7 @@ public class LinafmActivity extends Activity implements OnClickListener {
         }
         catch (Exception ex) {
         	Tools.ShowErrorMessage(getString(android.R.string.dialog_alert_title), 
-        			"Es ist ein Fehler beim Einlesen der Levelliste aufgetreten.", context);
+        			getString(R.string.error_reading_level_list), context);
         	return;
         }
 		ArrayAdapter<String> menuItems = new ArrayAdapter<String>(this, R.layout.menu_item, levelNames);
@@ -207,9 +203,9 @@ public class LinafmActivity extends Activity implements OnClickListener {
 			View view = li.inflate(R.layout.simpledialog, null);
 
 			AlertDialog.Builder builder = new AlertDialog.Builder(context);
-			builder.setTitle("Credits");
+			builder.setTitle(getString(R.string.credits));
 			builder.setView(view);
-			builder.setMessage(Html.fromHtml("<b><u>Linafm's Entwickler</b></u><br><br>Alexander Brügmann - <i>Code & Konzeption</i><br>Daniel Philipp - <i>Design & Konzeption</i><br>Esther H&auml;ntrich - <i>Code & Konzeption</i>"));
+			builder.setMessage(Html.fromHtml(getString(R.string.credits_text)));
 			builder.show();
 			break;
 		case DIALOG_HELP_ID:
