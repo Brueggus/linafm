@@ -241,11 +241,6 @@ public class LevelHandler {
 		{
 			bmpFront = getNumeralImage(context, i); 	
 			tilesPopup[i] = new Tile(context, -1, bmpFront, null);
-			
-			// Testausgabe für Farben im Popup, kann später wieder entfernt werden
-			if (new Random().nextInt(4) > 2)
-				tilesPopup[i].setStateSelected();
-			
 		}
 		
 		// Raster befüllen
