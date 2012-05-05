@@ -2,8 +2,6 @@ package de.fhdw.atpinfo.linafm;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.PorterDuff.Mode;
 import android.widget.ImageButton;
 import android.widget.TableRow.LayoutParams;
 
@@ -43,6 +41,12 @@ public class Tile extends ImageButton {
 		this.front = front;
 		this.back = back;
 		
+		// Dummy-Tiles sind leer, die anderen normal
+		if ( id == -1 )
+			setStateEmpty();
+		else
+			setStateNormal();
+		
 		setImageBitmap(front);
 
 		// Breite auf 0 Pixel festgesetzt, da anderenfalls die Buttons nicht
@@ -51,6 +55,9 @@ public class Tile extends ImageButton {
                 0, // width
                 LayoutParams.MATCH_PARENT, // height 
                 1.0f); // layout_weight
+		
+		// Rahmen, ansonsten kleben die alle aneinander
+		params.setMargins(3, 3, 3, 3);
 		
 		setScaleType(ScaleType.FIT_CENTER);
 		setLayoutParams(params);
@@ -102,20 +109,21 @@ public class Tile extends ImageButton {
 	 * Setze einen leeren Status für das Tile.
 	 */
 	public void setStateEmpty() {
-		getBackground().setColorFilter(Color.GRAY, Mode.MULTIPLY);
+		setBackgroundDrawable(getContext().getResources().getDrawable(R.drawable.btn_empty));
 	}
 	
 	/**
 	 * Versetze das Tile in den Ausgangsstatus.
 	 */
 	public void setStateNormal() {
-		getBackground().setColorFilter(Color.TRANSPARENT, Mode.MULTIPLY);
+		setBackgroundDrawable(getContext().getResources().getDrawable(R.drawable.btn_blue));
+		
 	}
 
 	/**
 	 * Markiere das Tile als ausgewählt.
 	 */
 	public void setStateSelected() {
-		getBackground().setColorFilter(Color.GREEN, Mode.MULTIPLY);
+		setBackgroundDrawable(getContext().getResources().getDrawable(R.drawable.btn_green));
 	}
 }
