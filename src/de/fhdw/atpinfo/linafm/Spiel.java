@@ -99,12 +99,7 @@ public class Spiel extends Activity implements OnClickListener {
         
         // Abbrechen-Button
         Button button = (Button) dialog.findViewById(R.id.btnAbbruch);
-        button.setOnClickListener(new OnClickListener() {
-        @Override
-            public void onClick(View v) {
-                dialog.cancel();
-            }
-        });
+        button.setOnClickListener(this);
         
         return dialog;
 	}
@@ -119,6 +114,8 @@ public class Spiel extends Activity implements OnClickListener {
 					showPopup();
 				}
 				break;
+			case R.id.btnAbbruch:
+				mDlgPopup.cancel();
 		}
 		
 		// Wurde ein Plättchen geklickt?
