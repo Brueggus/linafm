@@ -1,8 +1,15 @@
 package de.fhdw.atpinfo.linafm;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Handler;
+import android.view.Gravity;
+import android.widget.Toast;
 
 /**
  * Unser Spielfeld
@@ -47,6 +54,11 @@ public class Spielfeld {
 	 * Ist das Popup gerade aktiv?
 	 */
 	private boolean popupOpen = false;
+	
+	/**
+	 * Ein Zufallsgenerator für die Tipps
+	 */
+	Random generator = new Random();
 
 	public Spielfeld(Raster rUnten, Raster rPopup, Bitmap img, int[] solution, String name) {
 		rasterUnten = rUnten;
@@ -95,5 +107,78 @@ public class Spielfeld {
 		
 	return Arrays.equals(solution, rasterPopup.getTileIDs());
 	}
+	
+	
+	/**
+	 * Tipp geben: Ein falsch liegendes Plättchen im Popup wird hervorgehoben
+	 */
+	public void tipp(Context context) {
+		// Ein Moment dauert 1,5 Sekunden
+		final long MOMENT = 1500;
+		
+		// liegen überhaupt schon Plättchen im Popup?
+		if ( rasterPopup.isEmpty() ) {
+			Toast t = Toast.makeText(context, R.string.tipp_raster_empty, Toast.LENGTH_LONG);
+			// mittig positionieren
+			t.setGravity(Gravity.CENTER, 0, 0);
+			t.show();
+		}
+		else {
+			// falsch abgelegte Plättchen
+			List<Tile> wrongTiles = new ArrayList<Tile>();
+			
+			// alle Plättchen im Raster
+			Tile[] allTiles = rasterPopup.getTiles();
+			
+			for ( int i = 0; i < allTiles.length; i++ ) {
+				// ist das Feld leer? Oder liegt das Plättchen richtig?
+				if ( allTiles[i].isDummy() || allTiles[i].getTileId() == solution[i] )
+					continue;
+				// ansonsten: Zur Liste der falschen Plättchen hinzufügen
+				else
+					wrongTiles.add(allTiles[i]);
+			}
+			
+			// Gibt's überhaupt falsche Plättchen?
+			if ( wrongTiles.isEmpty() ) {
+				Toast t = Toast.makeText(context, R.string.tipp_no_errors, Toast.LENGTH_LONG);
+				// mittig positionieren
+				t.setGravity(Gravity.CENTER, 0, 0);
+				t.show();
+			}
+			else {
+				// nun suchen wir uns zufällig ein Plättchen aus...
+				int rndIndex = generator.nextInt(wrongTiles.size());
+				Tile hlTile = wrongTiles.get(rndIndex);
+				
+				// ...und heben es hervor...
+ 				hlTile.setStateSelected();
+				
+				// ...und setzen es nach einem Moment wieder auf Normalzustand zurück
+ 				// Da dies zeitverzögert geschehen soll, erstellen wir eine neue Klasse "TileResetter",
+ 				// die das Zurücksetzen für uns übernimmt.
+ 				class TileResetter implements Runnable {
+ 						
+ 						Tile tile;
+ 						
+ 						TileResetter( Tile t ) {
+ 							tile = t;
+ 						}
 
+ 						@Override
+ 						public void run() {
+ 							tile.setStateNormal();
+ 						}
+ 				}
+ 				
+ 				// Der Handler kümmert sich dann darum.
+				Handler myHandler = new Handler();
+				TileResetter myTileResetter = new TileResetter(hlTile);
+				
+				// Einen Moment warten, dann den TileResetter anstoßen
+				myHandler.postDelayed(myTileResetter, MOMENT);
+			}
+			
+		}		
+	}
 }

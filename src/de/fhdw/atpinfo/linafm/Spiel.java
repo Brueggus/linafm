@@ -101,6 +101,10 @@ public class Spiel extends Activity implements OnClickListener {
         Button button = (Button) dialog.findViewById(R.id.btnAbbruch);
         button.setOnClickListener(this);
         
+        // Tipp-Button
+        button = (Button) dialog.findViewById(R.id.btnTipp);
+        button.setOnClickListener(this);
+        
         return dialog;
 	}
 
@@ -116,6 +120,10 @@ public class Spiel extends Activity implements OnClickListener {
 				break;
 			case R.id.btnAbbruch:
 				mDlgPopup.cancel();
+				break;
+			case R.id.btnTipp:
+				spielfeld.tipp(context);
+				break;
 		}
 		
 		// Wurde ein Plättchen geklickt?
@@ -131,7 +139,7 @@ public class Spiel extends Activity implements OnClickListener {
 		// befindet sich unser Plättchen im unteren Raster?
 		// ( getParent():  Tile --> TableRow --> Raster ),
 		// Dummy-Tiles sollen nicht klickbar sein
-		if ( ((View)v.getParent().getParent()).getId() == R.id.rasterUnten  || v.getTileId() != -1 ) {
+		if ( ((View)v.getParent().getParent()).getId() == R.id.rasterUnten  || !v.isDummy() ) {
 			showPopup();
 		}
 	}
@@ -168,6 +176,4 @@ public class Spiel extends Activity implements OnClickListener {
 		
 		mDlgPopup.show();
 	}
-
-
 }

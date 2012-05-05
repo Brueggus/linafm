@@ -17,6 +17,8 @@
     <string name="credits_text">&lt;b>&lt;u>Linafm\'s Entwickler&lt;/b>&lt;/u>&lt;br>&lt;br>Alexander Brügmann - &lt;i>Code &amp; Konzeption&lt;/i>&lt;br>Daniel Philipp - &lt;i>Design &amp; Konzeption&lt;/i>&lt;br>Esther H&amp;auml;ntrich - &lt;i>Code &amp; Konzeption&lt;/i></string>
     <string name="help">Help</string>
     <string name="error_reading_level_list">Es ist ein Fehler beim Einlesen der Levelliste aufgetreten.</string>
+    <string name="tipp_no_errors">Das sieht schon ziemlich gut aus!</string>
+    <string name="tipp_raster_empty">Wo nichts ist, kann auch nichts falsch liegen...</string>
     
     
 
