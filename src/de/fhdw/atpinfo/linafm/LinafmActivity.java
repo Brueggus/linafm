@@ -209,7 +209,7 @@ public class LinafmActivity extends Activity implements OnClickListener {
 			AlertDialog.Builder builder = new AlertDialog.Builder(context);
 			builder.setTitle("Credits");
 			builder.setView(view);
-			builder.setMessage(Html.fromHtml("<b><u>Linafm's Entwickler</b></u><br><br>Alexander Brückmann - <i>Code & Konzeption</i><br>Daniel Philipp - <i>Design & Konzeption</i><br>Esther Hentrich - <i>Code & Konzeption</i>"));
+			builder.setMessage(Html.fromHtml("<b><u>Linafm's Entwickler</b></u><br><br>Alexander Brügmann - <i>Code & Konzeption</i><br>Daniel Philipp - <i>Design & Konzeption</i><br>Esther H&auml;ntrich - <i>Code & Konzeption</i>"));
 			builder.show();
 			break;
 		case DIALOG_HELP_ID:
