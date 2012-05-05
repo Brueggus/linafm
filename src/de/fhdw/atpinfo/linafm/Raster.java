@@ -92,7 +92,7 @@ public class Raster extends TableLayout {
 	 */
 	public boolean isComplete() {
 		for (int i = 0; i < size; i++)
-			if (felder[i] == null)
+			if ( felder[i].isDummy() )
 				return false;
 		
 		return true;
