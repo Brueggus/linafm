@@ -1,5 +1,8 @@
 package de.fhdw.atpinfo.linafm;
 
+import com.ctc.android.widget.ImageMap;
+import com.ctc.android.widget.ImageMap.OnImageMapClickedHandler;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -29,10 +32,10 @@ import android.widget.ListView;
  * @version 0.1
  *
  */
-public class LinafmActivity extends Activity implements OnClickListener {
+public class LinafmActivity extends Activity implements OnImageMapClickedHandler {
 	
 	private Context context;
-	private Button mBtnPlay, mBtnEnd;
+	private ImageMap mImageMap;
 	
 	// Optionsmenü Credits
 	static final int DIALOG_CREDITS_ID = 0;
@@ -56,16 +59,10 @@ public class LinafmActivity extends Activity implements OnClickListener {
         			getString(R.string.error_reading_level_list), context);
         }
         setContentView(R.layout.main);
-        
-        mBtnPlay = (Button)findViewById(R.id.play);
-        mBtnEnd = (Button)findViewById(R.id.end);
-        
-        //[DEBUG] Button farbig anzeigen fuer Positionierung
-        //mBtnEnd.setBackgroundColor(Color.GREEN);
-        //mBtnPlay.setBackgroundColor(Color.GREEN);
-        
-        mBtnPlay.setOnClickListener(this);
-        mBtnEnd.setOnClickListener(this);
+
+        // Click-Handler der ImageMap zuweisen
+        mImageMap = (ImageMap)findViewById(R.id.imageView1);
+        mImageMap.addOnImageMapClickedHandler(this);
     }
     
 	/**
@@ -92,15 +89,21 @@ public class LinafmActivity extends Activity implements OnClickListener {
 	 * @see android.view.View.OnClickListener#onClick(android.view.View)
 	 */
 	@Override
-	public void onClick(View button) {
-		switch (button.getId()) {
-		case R.id.play:
+	public void onImageMapClicked(int id) {
+		switch (id) {
+		case R.id.menu_play:
 			openLevelChooserDialog();
 			break;
-		case R.id.end:
+		case R.id.menu_end:
 			finish();
 			break;
 		}
+	}
+	
+	@Override
+	public void onBubbleClicked(int id) {
+		// Wir haben keine Bubbles...
+		
 	}
 
 	
@@ -216,5 +219,4 @@ public class LinafmActivity extends Activity implements OnClickListener {
 		}
 		return dialog;
 	}
-
 }

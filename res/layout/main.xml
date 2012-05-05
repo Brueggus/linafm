@@ -1,34 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/AbsoluteLayout1"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:ignore="Deprecated" >
+    xmlns:ctc="http://schemas.android.com/apk/res/de.fhdw.atpinfo.linafm"
+	android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
       
     <com.ctc.android.widget.ImageMap
         android:id="@+id/imageView1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:contentDescription="@string/desc_main_menu_background"
-        android:src="@drawable/mainmenu" />
+        android:src="@drawable/mainmenu"
+        ctc:map="mainmenu" />
 
-    <Button
-        android:id="@+id/play"
-        android:layout_width="255dp"
-        android:layout_height="288dp"
-        android:layout_x="260dp"
-        android:layout_y="270dp"
-        android:background="@android:color/transparent"
-        android:text="" />
-
-    <Button
-        android:id="@+id/end"
-        android:layout_width="280dp"
-        android:layout_height="300dp"
-        android:layout_x="610dp"
-        android:layout_y="250dp"
-        android:background="@android:color/transparent"
-        android:text="" />
-
-</AbsoluteLayout>
+</LinearLayout>
