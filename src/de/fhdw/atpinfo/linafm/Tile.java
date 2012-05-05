@@ -42,7 +42,7 @@ public class Tile extends ImageButton {
 		this.back = back;
 		
 		// Dummy-Tiles sind leer, die anderen normal
-		if ( id == -1 )
+		if ( isDummy() )
 			setStateEmpty();
 		else
 			setStateNormal();
@@ -90,6 +90,17 @@ public class Tile extends ImageButton {
 			setImageBitmap(back);
 		
 		turned = !turned;
+	}
+	
+	/**
+	 * Ermittelt, ob das Plättchen ein Dummy ist
+	 * @return true, falls Dummy (also Feld leer)
+	 */
+	public boolean isDummy() {
+		if ( id == -1 )
+			return true;
+		else
+			return false;
 	}
 
 	/**

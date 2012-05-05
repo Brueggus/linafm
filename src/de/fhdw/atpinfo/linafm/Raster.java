@@ -99,12 +99,12 @@ public class Raster extends TableLayout {
 	}
 	
 	/**
-	 * Prüft, ob Raster leer ist 
+	 * Prüft, ob Raster leer (also nur mit Dummy-Tiles gefüllt) ist 
 	 * @return Raster leer?
 	 */
 	public boolean isEmpty() {
 		for (int i = 0; i < size; i++)
-			if (felder[i] != null)
+			if ( !felder[i].isDummy() )
 				return false;
 		
 		return true;
@@ -159,6 +159,14 @@ public class Raster extends TableLayout {
 			result[i] = felder[i].getTileId();
 		
 		return result;
+	}
+	
+	/**
+	 * Liefert ein Array mit allen Plättchen des Rasters zurück
+	 * @return Array aller Tiles
+	 */
+	public Tile[] getTiles() {
+		return felder;
 	}
 	
 	/**
