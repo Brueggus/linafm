@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:ignore="Deprecated" >
-
-    <ImageView
+      
+    <com.ctc.android.widget.ImageMap
         android:id="@+id/imageView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
