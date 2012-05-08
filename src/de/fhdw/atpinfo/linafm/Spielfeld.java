@@ -154,7 +154,7 @@ public class Spielfeld {
 				Tile hlTile = wrongTiles.get(rndIndex);
 				
 				// ...und heben es hervor...
- 				hlTile.setState(TileState.SELECTED);
+ 				hlTile.setState(TileState.HIGHLIGHTED);
 				
 				// ...und setzen es nach einem Moment wieder auf Normalzustand zurück
  				// Da dies zeitverzögert geschehen soll, erstellen wir eine neue Klasse "TileResetter",
