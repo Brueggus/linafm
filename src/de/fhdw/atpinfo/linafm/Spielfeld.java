@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import de.fhdw.atpinfo.linafm.Tile.TileState;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Handler;
@@ -152,7 +154,7 @@ public class Spielfeld {
 				Tile hlTile = wrongTiles.get(rndIndex);
 				
 				// ...und heben es hervor...
- 				hlTile.setStateSelected();
+ 				hlTile.setState(TileState.SELECTED);
 				
 				// ...und setzen es nach einem Moment wieder auf Normalzustand zurück
  				// Da dies zeitverzögert geschehen soll, erstellen wir eine neue Klasse "TileResetter",
@@ -167,7 +169,7 @@ public class Spielfeld {
 
  						@Override
  						public void run() {
- 							tile.setStateNormal();
+ 							tile.setState(TileState.NORMAL);
  						}
  				}
  				

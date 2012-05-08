@@ -3,6 +3,7 @@ package de.fhdw.atpinfo.linafm;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.widget.ImageButton;
 import android.widget.TableRow.LayoutParams;
 
@@ -33,9 +34,9 @@ public class Tile extends ImageButton {
 		
 		// Dummy-Tiles sind leer, die anderen normal
 		if ( isDummy() )
-			setStateEmpty();
+			setState(TileState.EMPTY);
 		else
-			setStateNormal();
+			setState(TileState.NORMAL);
 		
 		setImageBitmap(image);
 
@@ -112,24 +113,28 @@ public class Tile extends ImageButton {
 	}
 	
 	/**
-	 * Setze einen leeren Status für das Tile.
+	 * Diese Farben kann unser Plättchen annehmen
 	 */
-	public void setStateEmpty() {
-		setBackgroundDrawable(getContext().getResources().getDrawable(R.drawable.btn_empty));
+	public enum TileState {
+		NORMAL (R.drawable.btn_blue), SELECTED (R.drawable.btn_green), HIGHLIGHTED (R.drawable.btn_red), 
+		EMPTY (R.drawable.btn_empty), BLACK (R.drawable.btn_black), BLUE (R.drawable.btn_blue), GREEN (R.drawable.btn_green),
+		PURPLE (R.drawable.btn_purple), RED (R.drawable.btn_red), YELLOW (R.drawable.btn_yellow);
+		
+		private int resId;
+		
+		private TileState(int resId) {
+			this.resId = resId;
+		}
+		
+		public Drawable getDrawable(Context c) {
+			return c.getResources().getDrawable(resId);
+		}
 	}
 	
 	/**
-	 * Versetze das Tile in den Ausgangsstatus.
+	 * Setze den Status für das Tile.
 	 */
-	public void setStateNormal() {
-		setBackgroundDrawable(getContext().getResources().getDrawable(R.drawable.btn_blue));
-		
-	}
-
-	/**
-	 * Markiere das Tile als ausgewählt.
-	 */
-	public void setStateSelected() {
-		setBackgroundDrawable(getContext().getResources().getDrawable(R.drawable.btn_green));
+	public void setState(TileState state) {
+		setBackgroundDrawable(state.getDrawable(getContext()));
 	}
 }
