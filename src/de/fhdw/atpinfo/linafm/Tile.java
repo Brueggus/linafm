@@ -80,7 +80,7 @@ public class Tile extends ImageButton {
 	 */
 	public void setImage(Bitmap img) {
 		this.image = img;
-		setImage(img);
+		setImageBitmap(img);
 	}
 	
 	/**
