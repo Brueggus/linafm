@@ -22,27 +22,14 @@ public class Tile extends ImageButton {
 	private int id;
 	
 	/**
-	 * Bild für die Vorderseite
+	 * Bild, das auf dem Plättchen angezeigt wird
 	 */
-	private Bitmap front;
-	
-	/**
-	 * Bild für die Rückseite
-	 */
-	private Bitmap back;
-	
-	/**
-	 * Ist das Plättchen umgedreht (Rückseite oben?)
-	 */
-	private boolean turned = false;
-	
-	
+	private Bitmap image;
 
-	public Tile(Context context, int id, Bitmap front, Bitmap back) {
+	public Tile(Context context, int id, Bitmap image) {
 		super(context);
 		this.id = id;
-		this.front = front;
-		this.back = back;
+		this.image = image;
 		
 		// Dummy-Tiles sind leer, die anderen normal
 		if ( isDummy() )
@@ -50,7 +37,7 @@ public class Tile extends ImageButton {
 		else
 			setStateNormal();
 		
-		setImageBitmap(front);
+		setImageBitmap(image);
 
 		// Breite auf 0 Pixel festgesetzt, da anderenfalls die Buttons nicht
 		// gleichmäßig in der Zeile verteilt werden.
@@ -73,27 +60,6 @@ public class Tile extends ImageButton {
 	public int getTileId() {
 		return id;
 	}
-
-	/**
-	 * Plättchen gedreht?
-	 * @return true, falls Plättchen umgedreht
-	 */
-	public boolean isTurned() {
-		return turned;
-	}
-
-	/**
-	 * Plättchen umdrehen
-	 */
-	public void turnAround()
-	{
-		if (turned)
-			setImageBitmap(front);
-		else
-			setImageBitmap(back);
-		
-		turned = !turned;
-	}
 	
 	/**
 	 * Ermittelt, ob das Plättchen ein Dummy ist
@@ -112,11 +78,38 @@ public class Tile extends ImageButton {
 	 * @param img Bild
 	 * @param back true setzen um Rückseite zu ändern
 	 */
-	public void setImage(Bitmap img, boolean back) {
-		if (!back)
-			this.front = img;
-		else
-			this.back = img;
+	public void setImage(Bitmap img) {
+		this.image = img;
+		setImage(img);
+	}
+	
+	/**
+	 * Setzt das Bild des Plättchens auf eine Zahl.
+	 * @param numeral Zahl, die angezeigt werden soll - 1
+	 */
+	public void setNumeralImage(int numeral) {
+		// Alle unsere Bilder... (die 0 bleibt außen vor)
+		final int[] images = {
+	    		/*R.drawable.tile_0,*/ R.drawable.new_tile_1, R.drawable.new_tile_2,
+	    		R.drawable.new_tile_3, R.drawable.new_tile_4, R.drawable.new_tile_5,
+	    		R.drawable.new_tile_6, R.drawable.new_tile_7, R.drawable.new_tile_8,
+	    		R.drawable.new_tile_9, R.drawable.new_tile_10, R.drawable.new_tile_11, 
+	    		R.drawable.new_tile_12
+	    };
+		
+		Bitmap bitmap = null;
+	    
+	    // Wir haben nur 1 - 12 im Angebot
+	    if ( numeral >= 0 && numeral < images.length ) {
+		    try {
+		        BitmapDrawable drawable = (BitmapDrawable)getContext().getResources().getDrawable(images[numeral]);
+		        bitmap = drawable.getBitmap();
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
+	    }
+	    
+	    setImageBitmap(bitmap);
 	}
 	
 	/**
@@ -139,31 +132,5 @@ public class Tile extends ImageButton {
 	 */
 	public void setStateSelected() {
 		setBackgroundDrawable(getContext().getResources().getDrawable(R.drawable.btn_green));
-	}
-	
-	public void setNumeralImage(int numeral) {
-		// Alle unsere Bilder... (die 0 bleibt außen vor)
-		final int[] images = {
-	    		/*R.drawable.tile_0,*/ R.drawable.new_tile_1, R.drawable.new_tile_2,
-	    		R.drawable.new_tile_3, R.drawable.new_tile_4, R.drawable.new_tile_5,
-	    		R.drawable.new_tile_6, R.drawable.new_tile_7, R.drawable.new_tile_8,
-	    		R.drawable.new_tile_9, R.drawable.new_tile_10, R.drawable.new_tile_11, 
-	    		R.drawable.new_tile_12
-	    };
-		
-		Bitmap bitmap = null;
-	    
-	    // Wir haben nur 1 - 12 im Angebot
-	    if (numeral < 0 || numeral > 11)
-	    	front = null;
-	    
-	    try {
-	        BitmapDrawable drawable = (BitmapDrawable)getContext().getResources().getDrawable(images[numeral]);
-	        bitmap = drawable.getBitmap();
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	    
-	    setImageBitmap(bitmap);
 	}
 }

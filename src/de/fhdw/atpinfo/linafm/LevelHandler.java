@@ -173,7 +173,7 @@ public class LevelHandler {
 		// Hilfsvariablen
 		String tmpFilename;
 		InputStream imageLoader;
-		Bitmap bmpFront, bmpBack;
+		Bitmap tileImage;
 		int currTile = 0, totalTiles = 0, finalPos;
 		
 		// wir öffnen die XML-Datei des gewünschten Levels
@@ -206,13 +206,10 @@ public class LevelHandler {
 					// Vorderseite
 					tmpFilename = parser.getAttributeValue(null, "image");
 					imageLoader = assetMgr.open(levelDir + tmpFilename);
-					bmpFront = BitmapFactory.decodeStream(imageLoader);
-					
-					// Rückseite
-					bmpBack = null;
+					tileImage = BitmapFactory.decodeStream(imageLoader);
 					
 					// Plättchen erstellen
-					tilesUnten[currTile] = new Tile(context, currTile, bmpFront, bmpBack);
+					tilesUnten[currTile] = new Tile(context, currTile, tileImage);
 					
 					// Eintrag im Lösungsarray
 					finalPos = Integer.parseInt(parser.getAttributeValue(null, "final_pos"));
@@ -229,7 +226,7 @@ public class LevelHandler {
 		// Aufräumen
 		in.close();		
 		tmpFilename = null;
-		bmpFront = bmpBack = null;		
+		tileImage = null;		
 		
 		//shuffle-Aufruf ab hier möglich!
 		shuffleTiles(tilesUnten);
@@ -239,7 +236,7 @@ public class LevelHandler {
 		
 		for (int i = 0; i < totalTiles; i++)
 		{
-			tilesPopup[i] = new Tile(context, -1, null, null);
+			tilesPopup[i] = new Tile(context, -1, null);
 			tilesPopup[i].setNumeralImage(i);
 		}
 		

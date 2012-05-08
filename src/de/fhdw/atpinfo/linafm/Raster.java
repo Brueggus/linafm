@@ -132,6 +132,8 @@ public class Raster extends TableLayout {
 				(felder[position] != null);
 		
 		felder[position] = tile;
+		
+		
 	}
 	
 	/**
