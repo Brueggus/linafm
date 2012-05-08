@@ -1,8 +1,5 @@
 package de.fhdw.atpinfo.linafm;
 
-import com.ctc.android.widget.ImageMap;
-import com.ctc.android.widget.ImageMap.OnImageMapClickedHandler;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -21,6 +18,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+
+import com.ctc.android.widget.ImageMap;
+import com.ctc.android.widget.ImageMap.OnImageMapClickedHandler;
 
 /**
  * linafm - LÜK Is Not A French Man
@@ -212,7 +212,16 @@ public class LinafmActivity extends Activity implements OnImageMapClickedHandler
 			builder.show();
 			break;
 		case DIALOG_HELP_ID:
-			// NYI , aber analog zum Credits AlertDialog, Text entwerfen, anpassen
+			// kann man hier ggf. etwas vom ersten case verwenden? Selbe View, selben Builer?
+			LayoutInflater li_help = LayoutInflater.from(context);
+			View view_help = li_help.inflate(R.layout.simpledialog, null);
+
+			AlertDialog.Builder builder_help = new AlertDialog.Builder(context);
+			builder_help.setTitle(getString(R.string.help));
+			builder_help.setView(view_help);
+			builder_help.setMessage(Html.fromHtml(getString(R.string.option_help)));
+			builder_help.setPositiveButton(R.string.close, null);
+			builder_help.show();
 			break;
 		default: 
 			dialog = null;

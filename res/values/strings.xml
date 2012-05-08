@@ -20,6 +20,20 @@
     <string name="tipp_no_errors">Das sieht schon ziemlich gut aus!</string>
     <string name="tipp_raster_empty">Wo nichts ist, kann auch nichts falsch liegen...</string>
     
+    <string name="option_help">&lt;b>Linafm&lt;/b> ist ein Lernspiel, basierend auf dem LÜK-Setzkastenprinzip.&lt;br>&lt;br>Du kannst aus einer großen Menge von Leveln wählen.&lt;br>
+        Hierzu genügt eine leichte Berührung des Start-Buttons im Hauptmenü. &lt;br>Wähle weise ein gewünschtes Level.&lt;br>Im geladenen Level findest du im oberen Bereich das Vorgabenbild.&lt;br> 
+        Darunter sind die möglichen Lösungen. Aber Achtung! Die Plättchen sind durcheinander gekommen. 
+        Gut, dass du da bist, um das wieder in Ordnung zu bringen!&lt;br>&lt;br> 
+        Über Auswählen der jeweiligen Plättchen kannst du sie im sich öffnenden Fenster der richtigen Position zuweisen.&lt;br>&lt;br>
+        
+        Falls du mal nicht weiter kommst, nicht verzweifeln! Du kannst dir über den Button im öffnenden Fenster auch einen Tipp abholen.
+        &lt;br>&lt;br>
+        Hast du alles fertig sortiert, so lass es doch durch linafm überprüfen. Den Button wirst du schnell finden.
+        &lt;br>&lt;br> 
+        Viel Spaß beim Kniffeln!
+        &lt;br>&lt;br>
+        </string>
+    
     
 
 </resources>
