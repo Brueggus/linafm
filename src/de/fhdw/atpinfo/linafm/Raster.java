@@ -131,9 +131,16 @@ public class Raster extends TableLayout {
 			while
 				(felder[position] != null);
 		
+		// Falls es sich um ein Dummy-Tile handelt, müssen wir noch das Bild entsprechend setzen
+		if ( tile.isDummy() )
+			// unteres Raster --> kein Bild
+			if ( this.getId() == R.id.rasterUnten )
+				tile.setImage(null);
+			// Popup-Raster --> Zahl
+			else if ( this.getId() == R.id.rasterPopup )
+				tile.setNumeralImage(position);
+		
 		felder[position] = tile;
-		
-		
 	}
 	
 	/**

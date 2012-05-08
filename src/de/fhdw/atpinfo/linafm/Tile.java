@@ -76,7 +76,6 @@ public class Tile extends ImageButton {
 	 * Methode um das Bild eines Plättchens zu ändern
 	 * 
 	 * @param img Bild
-	 * @param back true setzen um Rückseite zu ändern
 	 */
 	public void setImage(Bitmap img) {
 		this.image = img;
