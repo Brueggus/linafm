@@ -2,6 +2,8 @@ package de.fhdw.atpinfo.linafm;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.widget.ImageButton;
 import android.widget.TableRow.LayoutParams;
 
@@ -21,33 +23,22 @@ public class Tile extends ImageButton {
 	private int id;
 	
 	/**
-	 * Bild für die Vorderseite
+	 * Bild, das auf dem Plättchen angezeigt wird
 	 */
-	private Bitmap front;
-	
-	/**
-	 * Bild für die Rückseite
-	 */
-	private Bitmap back;
-	
-	/**
-	 * Ist das Plättchen umgedreht (Rückseite oben?)
-	 */
-	private boolean turned = false;
+	private Bitmap image;
 
-	public Tile(Context context, int id, Bitmap front, Bitmap back) {
+	public Tile(Context context, int id, Bitmap image) {
 		super(context);
 		this.id = id;
-		this.front = front;
-		this.back = back;
+		this.image = image;
 		
 		// Dummy-Tiles sind leer, die anderen normal
 		if ( isDummy() )
-			setStateEmpty();
+			setState(TileState.EMPTY);
 		else
-			setStateNormal();
+			setState(TileState.NORMAL);
 		
-		setImageBitmap(front);
+		setImageBitmap(image);
 
 		// Breite auf 0 Pixel festgesetzt, da anderenfalls die Buttons nicht
 		// gleichmäßig in der Zeile verteilt werden.
@@ -70,27 +61,6 @@ public class Tile extends ImageButton {
 	public int getTileId() {
 		return id;
 	}
-
-	/**
-	 * Plättchen gedreht?
-	 * @return true, falls Plättchen umgedreht
-	 */
-	public boolean isTurned() {
-		return turned;
-	}
-
-	/**
-	 * Plättchen umdrehen
-	 */
-	public void turnAround()
-	{
-		if (turned)
-			setImageBitmap(front);
-		else
-			setImageBitmap(back);
-		
-		turned = !turned;
-	}
 	
 	/**
 	 * Ermittelt, ob das Plättchen ein Dummy ist
@@ -107,34 +77,64 @@ public class Tile extends ImageButton {
 	 * Methode um das Bild eines Plättchens zu ändern
 	 * 
 	 * @param img Bild
-	 * @param back true setzen um Rückseite zu ändern
 	 */
-	public void setImage(Bitmap img, boolean back) {
-		if (!back)
-			this.front = img;
-		else
-			this.back = img;
+	public void setImage(Bitmap img) {
+		this.image = img;
+		setImageBitmap(img);
 	}
 	
 	/**
-	 * Setze einen leeren Status für das Tile.
+	 * Setzt das Bild des Plättchens auf eine Zahl.
+	 * @param numeral Zahl, die angezeigt werden soll - 1
 	 */
-	public void setStateEmpty() {
-		setBackgroundDrawable(getContext().getResources().getDrawable(R.drawable.btn_empty));
-	}
-	
-	/**
-	 * Versetze das Tile in den Ausgangsstatus.
-	 */
-	public void setStateNormal() {
-		setBackgroundDrawable(getContext().getResources().getDrawable(R.drawable.btn_blue));
+	public void setNumeralImage(int numeral) {
+		// Alle unsere Bilder... (die 0 bleibt außen vor)
+		final int[] images = {
+	    		/*R.drawable.tile_0,*/ R.drawable.new_tile_1, R.drawable.new_tile_2,
+	    		R.drawable.new_tile_3, R.drawable.new_tile_4, R.drawable.new_tile_5,
+	    		R.drawable.new_tile_6, R.drawable.new_tile_7, R.drawable.new_tile_8,
+	    		R.drawable.new_tile_9, R.drawable.new_tile_10, R.drawable.new_tile_11, 
+	    		R.drawable.new_tile_12
+	    };
 		
+		Bitmap bitmap = null;
+	    
+	    // Wir haben nur 1 - 12 im Angebot
+	    if ( numeral >= 0 && numeral < images.length ) {
+		    try {
+		        BitmapDrawable drawable = (BitmapDrawable)getContext().getResources().getDrawable(images[numeral]);
+		        bitmap = drawable.getBitmap();
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
+	    }
+	    
+	    setImageBitmap(bitmap);
 	}
-
+	
 	/**
-	 * Markiere das Tile als ausgewählt.
+	 * Diese Farben kann unser Plättchen annehmen
 	 */
-	public void setStateSelected() {
-		setBackgroundDrawable(getContext().getResources().getDrawable(R.drawable.btn_green));
+	public enum TileState {
+		NORMAL (R.drawable.btn_blue), SELECTED (R.drawable.btn_green), HIGHLIGHTED (R.drawable.btn_red), 
+		EMPTY (R.drawable.btn_empty), BLACK (R.drawable.btn_black), BLUE (R.drawable.btn_blue), GREEN (R.drawable.btn_green),
+		PURPLE (R.drawable.btn_purple), RED (R.drawable.btn_red), YELLOW (R.drawable.btn_yellow);
+		
+		private int resId;
+		
+		private TileState(int resId) {
+			this.resId = resId;
+		}
+		
+		public Drawable getDrawable(Context c) {
+			return c.getResources().getDrawable(resId);
+		}
+	}
+	
+	/**
+	 * Setze den Status für das Tile.
+	 */
+	public void setState(TileState state) {
+		setBackgroundDrawable(state.getDrawable(getContext()));
 	}
 }

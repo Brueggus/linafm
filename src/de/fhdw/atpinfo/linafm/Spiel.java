@@ -4,10 +4,13 @@ import java.io.IOException;
 
 import org.xmlpull.v1.XmlPullParserException;
 
+import de.fhdw.atpinfo.linafm.Tile.TileState;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -26,13 +29,35 @@ import android.widget.LinearLayout;
  */
 public class Spiel extends Activity implements OnClickListener {
 
+	/**
+	 * Unser Spielfeld
+	 */
 	private Spielfeld spielfeld;
+	
+	/**
+	 * Der Context
+	 */
 	private Context context;
+	
+	/**
+	 * Die ID des aktuellen Levels
+	 */
 	private int levelId;
 	
+	/**
+	 * Der Button zum Öffnen des Popups
+	 */
 	private Button mBtnPopup;
+	
+	/**
+	 * Der Popup-Dialog
+	 */
 	private Dialog mDlgPopup;
 	
+	/**
+	 * Das aktuell zum Tausch ausgewählte Plättchen
+	 */
+	private Tile activeTile = null;
 	
 
 	/**
@@ -69,9 +94,13 @@ public class Spiel extends Activity implements OnClickListener {
 		
 		// Raster unten
 		FrameLayout frame = (FrameLayout)findViewById(R.id.tilesUnten);
-		Raster rUnten = spielfeld.getRasterUnten();
-		rUnten.setOnClickListenerForAllTiles(this);
-		frame.addView(rUnten);
+		Raster raster = spielfeld.getRasterUnten();
+		raster.setOnClickListenerForAllTiles(this);
+		frame.addView(raster);
+		
+		// auch Plättchen im Popup sollen klickbar sein
+		raster = spielfeld.getRasterPopup();
+		raster.setOnClickListenerForAllTiles(this);
 		
 		// Popup generieren
 		mDlgPopup = drawPopupDialog();
@@ -136,12 +165,54 @@ public class Spiel extends Activity implements OnClickListener {
 	 * @param v das geklickte Plättchen
 	 */
 	private void onTileClick(Tile v) {
-		// befindet sich unser Plättchen im unteren Raster?
-		// ( getParent():  Tile --> TableRow --> Raster ),
-		// Dummy-Tiles sollen nicht klickbar sein
-		if ( ((View)v.getParent().getParent()).getId() == R.id.rasterUnten  || !v.isDummy() ) {
-			showPopup();
+		// Falls wir kein Dummy sind und noch kein Plättchen zum Tausch ausgewählt wurde...
+		if ( !v.isDummy() && activeTile == null ) {
+			// ... dann wählen wir uns selbst aus
+			activeTile = v;
+			v.setState(TileState.SELECTED);
+			
+			// befindet sich unser Plättchen im unteren Raster?
+			// ( getParent():  Tile --> TableRow --> Raster )
+			if ( ((View)v.getParent().getParent()).getId() == R.id.rasterUnten ) {
+				showPopup();
+			}
 		}
+		else if ( activeTile != null ) {
+			// Wurde ein anderes Plättchen gedrückt?
+			if ( v != activeTile )
+			{
+				v.setState(TileState.SELECTED);
+				
+				// Raster der zwei Tauschpartner
+				Raster srcRaster = (Raster) activeTile.getParent().getParent();
+				Raster destRaster = (Raster) v.getParent().getParent();
+				
+				// Position der zwei Plättchen im Raster
+				int srcPos = srcRaster.getTilePosition(activeTile);
+				int destPos = destRaster.getTilePosition(v);
+				
+				// Plättchen entfernen...
+				srcRaster.removeTile(srcPos);
+				destRaster.removeTile(destPos);
+				
+				// ...und umgekehrt wieder einfügen.
+				srcRaster.addTile(v, srcPos);
+				destRaster.addTile(activeTile, destPos);
+				
+				// Status wieder normal setzen
+				if ( v.isDummy() )
+					v.setState(TileState.EMPTY);
+				else
+					v.setState(TileState.NORMAL);
+			}
+			
+			// kein aktives Plättchen mehr
+			activeTile.setState(TileState.NORMAL);
+			activeTile = null;
+		}
+		
+		
+
 	}
 	
 	/**

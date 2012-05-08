@@ -1,5 +1,8 @@
 package de.fhdw.atpinfo.linafm;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Context;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -24,10 +27,20 @@ public class Raster extends TableLayout {
 	private int size = 0;
 	
 	/**
+	 * Die Zeilen unseres Rasters
+	 */
+	private List<TableRow> rows = new ArrayList<TableRow>();
+	
+	/**
+	 * Anzahl der Spalten pro Zeile
+	 */
+	private int columns;
+	
+	/**
 	 * Anzahl der Zeilen
 	 * !! als Double-Wert !!
 	 */
-	private final double rows = 2.0;
+	private final double rowCount = 2.0;
 
 	public Raster(Context context, int size) {
 		super(context);
@@ -57,17 +70,18 @@ public class Raster extends TableLayout {
 	public void buildRaster(Context context)
 	{
 		// Wie viele Plättchen in einer Reihe?
-		int columns = (int)Math.ceil( size / rows);
+		columns = (int)Math.ceil( size / rowCount);
 		
 		// Insgesamt x Zeilen im Raster
-		setWeightSum((float)rows);
+		setWeightSum((float)rowCount);
 		
 		// Raster aufbauen und füllen
 		int j = 0;
-		for (int i = 0; i < rows; i++)
+		for (int i = 0; i < rowCount; i++)
 		{
 			// Neue Zeile im Table-Layout
 			TableRow tr = new TableRow(context);
+			rows.add(tr);
 	        tr.setLayoutParams(new LayoutParams(
                     LayoutParams.FILL_PARENT, // Breite
                     LayoutParams.FILL_PARENT, // Höhe
@@ -131,7 +145,16 @@ public class Raster extends TableLayout {
 			while
 				(felder[position] != null);
 		
-		felder[position] = tile;
+		// Falls es sich um ein Dummy-Tile handelt, müssen wir noch das Bild entsprechend setzen
+		if ( tile.isDummy() )
+			// unteres Raster --> kein Bild
+			if ( this.getId() == R.id.rasterUnten )
+				tile.setImage(null);
+			// Popup-Raster --> Zahl
+			else if ( this.getId() == R.id.rasterPopup )
+				tile.setNumeralImage(position);
+
+		updateRaster(tile, position);
 	}
 	
 	/**
@@ -143,8 +166,62 @@ public class Raster extends TableLayout {
 		// Befindet sich die Position innerhalb der Arraygrenzen?
 		if (position >= size || position < 0)
 			throw new ArrayIndexOutOfBoundsException(R.string.ex_insert_tile_out_of_raster);
+
+		updateRaster(null, position);	
+	}
+	
+	/**
+	 * Tauscht ein Plättchen im Raster aus
+	 * @param tile das Plättchen
+	 * @param pos die Position (stimmt mit der im felder-Array überein)
+	 */
+	public void updateRaster(Tile tile, int pos) {
+		// Zeile und Spalte ermitteln
+		Coordinate<Integer> coords = getLayoutPosition(pos);
+		TableRow row = rows.get(coords.row);
 		
-		felder[position] = null;
+		// Hinzufügen oder entfernen?
+		if ( tile == null )
+			row.removeViewAt(coords.column);
+		else
+			row.addView(tile, coords.column);
+		
+		felder[pos] = tile;
+	}
+	
+	
+	/**
+	 * ermitteln, in welcher Zeile und welcher Spalte das Plättchen hinzugefügt wurde
+	 * Beispiel: 12 Plättchen = 2 Zeilen, 6 Spalten
+	 * +----+----+----+----+----+----+
+	 * |  0 |  1 |  2 |  3 |  4 |  5 |
+	 * +----+----+----+----+----+----+
+	 * |  6 |  7 |  8 |  9 | 10 | 11 |
+	 * +----+----+----+----+----+----+
+	 * @param position Position im Felder-Array
+	 * @return Zeile/Spalte als Koordinate
+	 */
+	public Coordinate<Integer> getLayoutPosition(int position) {
+		int row = position / columns;
+		int column = position % columns;
+		
+		return new Coordinate<Integer>(row, column);
+	}
+	
+	/**
+	 * Koordinate bestehend aus Zeile und Spalte
+	 * @author Alexander Brügmann
+	 *
+	 * @param <T> Typ (in der Regel Integer)
+	 */
+	class Coordinate<T> {
+	    public final T row;
+	    public final T column;
+
+	    public Coordinate(T first, T second) {
+	        row = first;
+	        column = second;
+	    }
 	}
 	
 	/**
@@ -167,6 +244,19 @@ public class Raster extends TableLayout {
 	 */
 	public Tile[] getTiles() {
 		return felder;
+	}
+	
+	/**
+	 * Ermittelt die Position eines bestimmten Plättchens im Raster
+	 * @param tile Plättchen, dessen Position gesucht wird
+	 * @return Position des Plättchens, -1 wenn nicht gefunden
+	 */
+	public int getTilePosition(Tile tile) {
+		for (int i = 0; i < size; i++)
+			if ( felder[i] == tile )
+				return i;
+		
+		return -1;
 	}
 	
 	/**

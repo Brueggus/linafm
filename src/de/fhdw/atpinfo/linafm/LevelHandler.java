@@ -173,7 +173,7 @@ public class LevelHandler {
 		// Hilfsvariablen
 		String tmpFilename;
 		InputStream imageLoader;
-		Bitmap bmpFront, bmpBack;
+		Bitmap tileImage;
 		int currTile = 0, totalTiles = 0, finalPos;
 		
 		// wir öffnen die XML-Datei des gewünschten Levels
@@ -206,13 +206,10 @@ public class LevelHandler {
 					// Vorderseite
 					tmpFilename = parser.getAttributeValue(null, "image");
 					imageLoader = assetMgr.open(levelDir + tmpFilename);
-					bmpFront = BitmapFactory.decodeStream(imageLoader);
-					
-					// Rückseite
-					bmpBack = getNumeralImage(context, currTile);
+					tileImage = BitmapFactory.decodeStream(imageLoader);
 					
 					// Plättchen erstellen
-					tilesUnten[currTile] = new Tile(context, currTile, bmpFront, bmpBack);
+					tilesUnten[currTile] = new Tile(context, currTile, tileImage);
 					
 					// Eintrag im Lösungsarray
 					finalPos = Integer.parseInt(parser.getAttributeValue(null, "final_pos"));
@@ -229,7 +226,7 @@ public class LevelHandler {
 		// Aufräumen
 		in.close();		
 		tmpFilename = null;
-		bmpFront = bmpBack = null;		
+		tileImage = null;		
 		
 		//shuffle-Aufruf ab hier möglich!
 		shuffleTiles(tilesUnten);
@@ -239,8 +236,8 @@ public class LevelHandler {
 		
 		for (int i = 0; i < totalTiles; i++)
 		{
-			bmpFront = getNumeralImage(context, i); 	
-			tilesPopup[i] = new Tile(context, -1, bmpFront, null);
+			tilesPopup[i] = new Tile(context, -1, null);
+			tilesPopup[i].setNumeralImage(i);
 		}
 		
 		// Raster befüllen
@@ -260,38 +257,4 @@ public class LevelHandler {
 
 		return result;
 	}
-	
-	/**
-	 * Diese Methode liefert das Hintergrundbild (Zahl) für die Plättchen zurück 
-	 * 
-	 * @param context Context
-	 * @param numeral die gewünschte Ziffer
-	 * @return Bitmap das Bild zur Ziffer
-	 */
-	public static Bitmap getNumeralImage(Context context, int numeral){
-		// Alle unsere Bilder... (die 0 bleibt außen vor)
-		final int[] images = {
-	    		/*R.drawable.tile_0,*/ R.drawable.new_tile_1, R.drawable.new_tile_2,
-	    		R.drawable.new_tile_3, R.drawable.new_tile_4, R.drawable.new_tile_5,
-	    		R.drawable.new_tile_6, R.drawable.new_tile_7, R.drawable.new_tile_8,
-	    		R.drawable.new_tile_9, R.drawable.new_tile_10, R.drawable.new_tile_11, 
-	    		R.drawable.new_tile_12
-	    };
-		
-		Bitmap bitmap = null;
-	    
-	    // Wir haben nur 1 - 12 im Angebot
-	    if (numeral < 0 || numeral > 11)
-	    	return bitmap;
-	    
-	    try {
-	        BitmapDrawable drawable = (BitmapDrawable)context.getResources().getDrawable(images[numeral]);
-	        bitmap = drawable.getBitmap();
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	    return bitmap;
-	}
-
-	
 }
