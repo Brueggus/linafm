@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <level name="Punktebilder" difficulty="easy">
   <tiles total="12">
-      <tile image="1.png" final_pos="1" />
+      <tile image="1.png" final_pos="4" />
       <tile image="2.png" final_pos="8" />
       <tile image="3.png" final_pos="3" />
       <tile image="4.png" final_pos="0" />
@@ -12,6 +12,6 @@
 	  <tile image="9.png" final_pos="6" />
 	  <tile image="10.png" final_pos="9" />
 	  <tile image="11.png" final_pos="11" />
-	  <tile image="12.png" final_pos="4" />
+	  <tile image="12.png" final_pos="1" />
   </tiles>
 </level>
