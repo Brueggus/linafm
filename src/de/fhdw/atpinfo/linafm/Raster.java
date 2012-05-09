@@ -192,18 +192,16 @@ public class Raster extends TableLayout {
 	 * @param refreshView soll auch die Ansicht aktualisiert werden?
 	 * @throws ArrayIndexOutOfBoundsException
 	 */
-	public void removeTile(int position, boolean refreshView) throws ArrayIndexOutOfBoundsException {
+	public void removeTile(int position) throws ArrayIndexOutOfBoundsException {
 		// Befindet sich die Position innerhalb der Arraygrenzen?
 		if (position >= size || position < 0)
 			throw new ArrayIndexOutOfBoundsException(R.string.ex_insert_tile_out_of_raster);
 		
 		felder[position] = null;
 
-		if ( refreshView ) {
-			// Ermitteln, in welcher Zeile Veränderungen vorgenommen wurden
-			Coordinate<Integer> newPosInRaster = getLayoutPosition(position);
-			refreshRow(newPosInRaster.row);
-		}
+		// Ermitteln, in welcher Zeile Veränderungen vorgenommen wurden
+		Coordinate<Integer> newPosInRaster = getLayoutPosition(position);
+		refreshRow(newPosInRaster.row);
 	}
 	
 	/**

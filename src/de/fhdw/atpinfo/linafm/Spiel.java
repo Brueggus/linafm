@@ -194,8 +194,8 @@ public class Spiel extends Activity implements OnClickListener {
 				// Plättchen entfernen...
 				// keine Aktualisierung der Ansicht, da dies eh gleich durch das Hinzufügen 
 				// neuer Plättchen geschieht
-				srcRaster.removeTile(srcPos, false);
-				destRaster.removeTile(destPos, false);
+				srcRaster.removeTile(srcPos);
+				destRaster.removeTile(destPos);
 				
 				// ...und umgekehrt wieder einfügen.
 				srcRaster.addTile(v, srcPos);
