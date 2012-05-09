@@ -87,15 +87,40 @@ public class Raster extends TableLayout {
                     LayoutParams.FILL_PARENT, // Höhe
                     1.0f)); // layout_weight
 			
+	        /*
 	        // Zeile befüllen
 			do
 			{
 				tr.addView(felder[j]);
 			} 
 			while ( (++j % columns) != 0 ); // wird false, sobald die Zeile voll ist
+			*/
+	        
+	        refreshRow(i);
 			
 			// Zeile dem Layout hinzufügen
 			this.addView(tr);
+		}
+	}
+	
+	/**
+	 * Baut eine Zeile des Rasters mittels der Daten des Felder-Arrays neu auf
+	 * @param rowId Zeilennummer beginnend bei 0
+	 */
+	private void refreshRow(int rowId) {
+		TableRow row = rows.get(rowId);
+		
+		// erst mal leer machen
+		row.removeAllViews();
+		
+		// Beispiel: Zeile 3 bei 8 Spalten: Position 16 im Raster 
+		int start = rowId * columns;
+		// eine ganze Zeile lang hochzählen (also bis Pos. 23)
+		int end = start + columns;
+		
+		for ( int i = start; i < end; i++ ) {
+			if ( felder[i] != null )
+				row.addView(felder[i]);
 		}
 	}
 	
@@ -153,42 +178,33 @@ public class Raster extends TableLayout {
 			// Popup-Raster --> Zahl
 			else if ( this.getId() == R.id.rasterPopup )
 				tile.setNumeralImage(position);
-
-		updateRaster(tile, position);
+		
+		felder[position] = tile;
+		
+		// Ermitteln, in welcher Zeile Veränderungen vorgenommen wurden
+		Coordinate<Integer> newPosInRaster = getLayoutPosition(position);
+		refreshRow(newPosInRaster.row);
 	}
 	
 	/**
 	 * Plättchen an einer bestimmten Position löschen
-	 * @param position
+	 * @param position Position
+	 * @param refreshView soll auch die Ansicht aktualisiert werden?
 	 * @throws ArrayIndexOutOfBoundsException
 	 */
-	public void removeTile(int position) throws ArrayIndexOutOfBoundsException {
+	public void removeTile(int position, boolean refreshView) throws ArrayIndexOutOfBoundsException {
 		// Befindet sich die Position innerhalb der Arraygrenzen?
 		if (position >= size || position < 0)
 			throw new ArrayIndexOutOfBoundsException(R.string.ex_insert_tile_out_of_raster);
+		
+		felder[position] = null;
 
-		updateRaster(null, position);	
+		if ( refreshView ) {
+			// Ermitteln, in welcher Zeile Veränderungen vorgenommen wurden
+			Coordinate<Integer> newPosInRaster = getLayoutPosition(position);
+			refreshRow(newPosInRaster.row);
+		}
 	}
-	
-	/**
-	 * Tauscht ein Plättchen im Raster aus
-	 * @param tile das Plättchen
-	 * @param pos die Position (stimmt mit der im felder-Array überein)
-	 */
-	public void updateRaster(Tile tile, int pos) {
-		// Zeile und Spalte ermitteln
-		Coordinate<Integer> coords = getLayoutPosition(pos);
-		TableRow row = rows.get(coords.row);
-		
-		// Hinzufügen oder entfernen?
-		if ( tile == null )
-			row.removeViewAt(coords.column);
-		else
-			row.addView(tile, coords.column);
-		
-		felder[pos] = tile;
-	}
-	
 	
 	/**
 	 * ermitteln, in welcher Zeile und welcher Spalte das Plättchen hinzugefügt wurde
