@@ -10,7 +10,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:contentDescription="@string/desc_main_menu_background"
-        android:src="@drawable/mainmenu_vert"
-        ctc:map="mainmenu_vert" />
+        android:src="@drawable/mainmenu"
+        ctc:map="mainmenu" />
 
 </LinearLayout>
