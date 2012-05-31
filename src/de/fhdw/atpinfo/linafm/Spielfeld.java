@@ -11,6 +11,11 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -120,9 +125,20 @@ public class Spielfeld {
 		
 		// liegen überhaupt schon Plättchen im Popup?
 		if ( rasterPopup.isEmpty() ) {
-			Toast t = Toast.makeText(context, R.string.tipp_raster_empty, Toast.LENGTH_LONG);
+			LayoutInflater inflater = (LayoutInflater) context.getSystemService("layout_inflater");
+			View toast_layout = inflater.inflate(R.layout.toastlayout, null);
+			
+			ImageView image = (ImageView) toast_layout.findViewById(R.id.toastimage);
+			image.setImageResource(R.drawable.toast);
+			
+			TextView text = (TextView) toast_layout.findViewById(R.id.toasttext);
+			text.setText(R.string.tipp_raster_empty);
+			
+			Toast t = new Toast(context);
 			// mittig positionieren
 			t.setGravity(Gravity.CENTER, 0, 0);
+			t.setDuration(Toast.LENGTH_LONG);
+			t.setView(toast_layout);
 			t.show();
 		}
 		else {
@@ -143,9 +159,20 @@ public class Spielfeld {
 			
 			// Gibt's überhaupt falsche Plättchen?
 			if ( wrongTiles.isEmpty() ) {
-				Toast t = Toast.makeText(context, R.string.tipp_no_errors, Toast.LENGTH_LONG);
+				LayoutInflater inflater = (LayoutInflater) context.getSystemService("layout_inflater");
+				View toast_layout = inflater.inflate(R.layout.toastlayout, null);
+				
+				ImageView image = (ImageView) toast_layout.findViewById(R.id.toastimage);
+				image.setImageResource(R.drawable.toast);
+				
+				TextView text = (TextView) toast_layout.findViewById(R.id.toasttext);
+				text.setText(R.string.tipp_no_errors);
+				
+				Toast t = new Toast(context);
 				// mittig positionieren
 				t.setGravity(Gravity.CENTER, 0, 0);
+				t.setDuration(Toast.LENGTH_LONG);
+				t.setView(toast_layout);
 				t.show();
 			}
 			else {
