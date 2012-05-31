@@ -76,6 +76,17 @@ public class LevelHandler {
 	}
 	
 	/**
+	 * Liefert den Namen des ausgewählten Levels
+	 * 
+	 * @param id int (id des ausgwählten Levels)
+	 * @return String, welcher den Namen des Level enthält
+	 */
+	public static String getLevelById(int id) {
+		String levelName = captions[id];
+		return levelName;			
+	}
+	
+	/**
 	 * Levelliste neu aus XML-Dateien aufbauen
 	 * 
 	 * @param context Context, wird benötigt, um auf die assets zugreifen zu können

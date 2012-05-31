@@ -86,7 +86,9 @@ public class Spiel extends Activity implements OnClickListener {
 		}
 		
 		// Spielfeld anzeigen
+		String levelName = LevelHandler.getLevelById(levelId);
 		setContentView(R.layout.spielfeld);
+		setTitle(levelName);
 		
 		// Bild oben
 		ImageView image = (ImageView)findViewById(R.id.imgOben);
