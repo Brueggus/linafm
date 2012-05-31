@@ -10,6 +10,7 @@ import de.fhdw.atpinfo.linafm.Tile.TileState;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Handler;
+import android.text.Html;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -108,11 +109,28 @@ public class Spielfeld {
 	 * Prüft, ob alle Plätchen im Popup auf der richtigen Position liegen
 	 * @return true, wenn Level korrekt gelöst wurde
 	 */
-	private boolean vaildate() {
-		if ( !rasterPopup.isComplete() )
-			return false;
+	public void vaildate(Context context) {
+		LayoutInflater inflater = (LayoutInflater) context.getSystemService("layout_inflater");
+		View toast_layout = inflater.inflate(R.layout.toastlayout, null);
+		ImageView image = (ImageView) toast_layout.findViewById(R.id.toastimage);
+		TextView text = (TextView) toast_layout.findViewById(R.id.toasttext);
 		
-	return Arrays.equals(solution, rasterPopup.getTileIDs());
+		if ( rasterPopup.isComplete() ) {
+			image.setImageResource(R.drawable.pokal);
+			text.setText(Html.fromHtml(context.getString(R.string.validate_success)));
+			
+		} else {
+			image.setImageResource(R.drawable.verloren);
+			text.setText(Html.fromHtml(context.getString(R.string.validate_not_success)));
+		}
+		Toast t = new Toast(context);
+		// mittig positionieren
+		t.setGravity(Gravity.CENTER, 0, 0);
+		t.setDuration(Toast.LENGTH_LONG);
+		t.setView(toast_layout);
+		t.show();
+		
+	//return Arrays.equals(solution, rasterPopup.getTileIDs());
 	}
 	
 	

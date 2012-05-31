@@ -50,6 +50,11 @@ public class Spiel extends Activity implements OnClickListener {
 	private Button mBtnPopup;
 	
 	/**
+	 * Der Button zur Validierung
+	 */
+	private Button mBtnCheck;
+	
+	/**
 	 * Der Popup-Dialog
 	 */
 	private Dialog mDlgPopup;
@@ -109,6 +114,10 @@ public class Spiel extends Activity implements OnClickListener {
 		
 		mBtnPopup = (Button) findViewById(R.id.btnPopup);
 		mBtnPopup.setOnClickListener(this);
+		
+		// Validierung
+		mBtnCheck = (Button) findViewById(R.id.btnCheck);
+		mBtnCheck.setOnClickListener(this);
 	}
 	
 	
@@ -148,6 +157,9 @@ public class Spiel extends Activity implements OnClickListener {
 				} else {
 					showPopup();
 				}
+				break;
+			case R.id.btnCheck:
+				spielfeld.vaildate(context);
 				break;
 			case R.id.btnAbbruch:
 				mDlgPopup.cancel();

@@ -34,6 +34,7 @@
         &lt;br>&lt;br>
         </string>
     
-    
+    <string name="validate_not_success">&lt;b>Das ist leider nicht korrekt!&lt;/b>&lt;br>Versuch es weiter.</string>
+    <string name="validate_success">&lt;b>Herzlichen Glückwunsch!&lt;/b>&lt;br>Du hast alles richtig gemacht.</string>
 
 </resources>
