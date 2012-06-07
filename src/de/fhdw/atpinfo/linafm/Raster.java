@@ -1,6 +1,7 @@
 package de.fhdw.atpinfo.linafm;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import android.content.Context;
@@ -114,6 +115,18 @@ public class Raster extends TableLayout {
 		}
 	}
 	
+	/**
+	 * Leert das komplette Raster
+	 */
+	public void clear() {
+		// Alle Reihen leeren...
+		for ( TableRow row : rows ) {
+			row.removeAllViews();
+		}
+		
+		// ...und auch das Felder-Array
+		Arrays.fill(felder, null);
+	}
 	
 	/**
 	 * Prüft, ob alle Felder des Rasters mit einem Plättchen belegt ist 
@@ -270,6 +283,14 @@ public class Raster extends TableLayout {
 	public void setOnClickListenerForAllTiles(OnClickListener l) {
 		for ( Tile t : felder )
 			t.setOnClickListener(l);
+	}
+
+	/**
+	 * Liefert die Größe des Rasters
+	 * @return Anzahl der Plättchen
+	 */
+	public int getSize() {
+		return size;
 	}
 	
 }
