@@ -76,7 +76,6 @@ public class Raster extends TableLayout {
 		setWeightSum((float)rowCount);
 		
 		// Raster aufbauen und füllen
-		int j = 0;
 		for (int i = 0; i < rowCount; i++)
 		{
 			// Neue Zeile im Table-Layout
@@ -86,15 +85,6 @@ public class Raster extends TableLayout {
                     LayoutParams.FILL_PARENT, // Breite
                     LayoutParams.FILL_PARENT, // Höhe
                     1.0f)); // layout_weight
-			
-	        /*
-	        // Zeile befüllen
-			do
-			{
-				tr.addView(felder[j]);
-			} 
-			while ( (++j % columns) != 0 ); // wird false, sobald die Zeile voll ist
-			*/
 	        
 	        refreshRow(i);
 			
