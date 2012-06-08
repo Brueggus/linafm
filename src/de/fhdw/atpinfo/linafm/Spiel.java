@@ -1,6 +1,9 @@
 package de.fhdw.atpinfo.linafm;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -130,8 +133,78 @@ public class Spiel extends Activity implements OnClickListener, OnLongClickListe
 		
 
 	}
+<<<<<<< HEAD
 
 
+=======
+	
+	/**
+	 * Sichert die Position der Plättchen, damit diese rekonstruiert werden kann,
+	 * wenn z.B. der Bildschirm gedreht wird
+	 * @param outState beinhaltet Positionen der Plättchen
+	 */
+	@Override
+	protected void onSaveInstanceState(Bundle outState)
+	{
+	    super.onSaveInstanceState(outState);
+	    outState.putIntArray("rPopup", spielfeld.getRasterPopup().getTileIDs()); // Raster Popup
+	    outState.putIntArray("rUnten", spielfeld.getRasterUnten().getTileIDs()); // Raster unten			
+	}
+	
+	/**
+	 * Sortiert die Plättchen wieder so ein, wie sie waren, bevor z.B. der Bildschirm
+	 * gedreht wurde
+	 * @param tileOrder Bundle, welches die Reihenfolge der Plättchen beinhaltet
+	 */
+	@Override
+	protected void onRestoreInstanceState(Bundle tileOrder)
+	{
+		super.onRestoreInstanceState(tileOrder);
+		
+		if ( tileOrder != null )
+		{
+			// unsere beiden Raster
+			Raster rUnten = spielfeld.getRasterUnten();
+			Raster rPopup = spielfeld.getRasterPopup();
+			
+			// erstmal alle Plättchen einsammeln
+			List<Tile> allTiles = new ArrayList<Tile>();
+			Collections.addAll(allTiles, rPopup.getTiles());
+			Collections.addAll(allTiles, rUnten.getTiles());
+			
+			// IDs der Plättchen aus dem Bundle auslesen
+			int rPopupIDs[] = tileOrder.getIntArray("rPopup");
+			int rUntenIDs[] = tileOrder.getIntArray("rUnten");
+			int rasterIDs[][] = { rPopupIDs, rUntenIDs };
+			
+			// alle Plättchen entfernen...
+			rUnten.clear();
+			rPopup.clear();
+			
+			// ... und in der richtigen Reihenfolge neu befüllen
+			// zuerst das Popup-Raster
+			Raster currRaster = rPopup;
+			for ( int[] IDs : rasterIDs ) {
+				for ( int id : IDs ) {
+					// Anhand der ID ermitteln wir das passende Plättchen
+					for ( Tile t : allTiles ) {
+						if ( t.getTileId() == id ) {
+							allTiles.remove(t);					
+							currRaster.addTile(t, -1);
+							break;
+						}
+					}
+				}
+				
+				// und jetzt das untere
+				currRaster = rUnten;
+			}
+			
+		}
+	}
+	
+	
+>>>>>>> branch 'master' of https://DerDaniel@github.com/Brueggus/linafm.git
 	/**
 	 * Popup generieren
 	 */
