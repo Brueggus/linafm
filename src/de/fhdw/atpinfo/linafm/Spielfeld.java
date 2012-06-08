@@ -14,7 +14,6 @@ import android.text.Html;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -115,7 +114,9 @@ public class Spielfeld {
 		ImageView image = (ImageView) toast_layout.findViewById(R.id.toastimage);
 		TextView text = (TextView) toast_layout.findViewById(R.id.toasttext);
 		
-		if ( rasterPopup.isComplete() ) {
+		boolean rightPosition = Arrays.equals(solution, rasterPopup.getTileIDs());
+				
+		if ( rasterPopup.isComplete() && rightPosition == true ) {
 			image.setImageResource(R.drawable.pokal);
 			text.setText(Html.fromHtml(context.getString(R.string.validate_success)));
 			
@@ -129,8 +130,6 @@ public class Spielfeld {
 		t.setDuration(Toast.LENGTH_LONG);
 		t.setView(toast_layout);
 		t.show();
-		
-	//return Arrays.equals(solution, rasterPopup.getTileIDs());
 	}
 	
 	

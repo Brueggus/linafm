@@ -5,14 +5,13 @@ import java.io.IOException;
 import org.xmlpull.v1.XmlPullParserException;
 
 import de.fhdw.atpinfo.linafm.Tile.TileState;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -27,7 +26,7 @@ import android.widget.LinearLayout;
  * @version 0.1
  *
  */
-public class Spiel extends Activity implements OnClickListener {
+public class Spiel extends Activity implements OnClickListener, OnLongClickListener {
 
 	/**
 	 * Unser Spielfeld
@@ -64,6 +63,15 @@ public class Spiel extends Activity implements OnClickListener {
 	 */
 	private Tile activeTile = null;
 	
+	/**
+	 * Das Raster, welches auf dem Spielfeld zu sehen ist
+	 */
+	private Raster rasterUnten;
+
+	/**
+	 * Dieses Raster erscheint im Popup
+	 */
+	private Raster rasterPopup;
 
 	/**
 	 * Wird aufgerufen, sobald ein neues Spiel erstellt wird
@@ -101,13 +109,14 @@ public class Spiel extends Activity implements OnClickListener {
 		
 		// Raster unten
 		FrameLayout frame = (FrameLayout)findViewById(R.id.tilesUnten);
-		Raster raster = spielfeld.getRasterUnten();
-		raster.setOnClickListenerForAllTiles(this);
-		frame.addView(raster);
+		rasterUnten = spielfeld.getRasterUnten();
+		rasterUnten.setOnClickListenerForAllTiles(this);
+		rasterUnten.setOnLongClickListenerForAllTiles(this);
+		frame.addView(rasterUnten);
 		
 		// auch Plättchen im Popup sollen klickbar sein
-		raster = spielfeld.getRasterPopup();
-		raster.setOnClickListenerForAllTiles(this);
+		rasterPopup = spielfeld.getRasterPopup();
+		rasterPopup.setOnClickListenerForAllTiles(this);		
 		
 		// Popup generieren
 		mDlgPopup = drawPopupDialog();
@@ -118,9 +127,11 @@ public class Spiel extends Activity implements OnClickListener {
 		// Validierung
 		mBtnCheck = (Button) findViewById(R.id.btnCheck);
 		mBtnCheck.setOnClickListener(this);
+		
+
 	}
-	
-	
+
+
 	/**
 	 * Popup generieren
 	 */
@@ -133,9 +144,8 @@ public class Spiel extends Activity implements OnClickListener {
         dialog.setCanceledOnTouchOutside(true);
         
         FrameLayout fl = (FrameLayout) dialog.findViewById(R.id.popup);
-        Raster popUpRaster = spielfeld.getRasterPopup();
         // Raster zum FrameLayout hinzufügen
-        fl.addView(popUpRaster);
+        fl.addView(rasterPopup);
         
         // Abbrechen-Button
         Button button = (Button) dialog.findViewById(R.id.btnAbbruch);
@@ -145,7 +155,7 @@ public class Spiel extends Activity implements OnClickListener {
         button = (Button) dialog.findViewById(R.id.btnTipp);
         button.setOnClickListener(this);
         
-        return dialog;
+		return dialog;
 	}
 
 	@Override
@@ -172,6 +182,12 @@ public class Spiel extends Activity implements OnClickListener {
 		// Wurde ein Plättchen geklickt?
 		if ( v instanceof Tile )
 			onTileClick( (Tile)v );
+	}
+	
+	@Override
+	public boolean onLongClick(View v) {
+		onTileLongClick( (Tile)v );
+		return false;
 	}
 
 	/**
@@ -229,6 +245,41 @@ public class Spiel extends Activity implements OnClickListener {
 		
 		
 
+	}
+	
+	/**
+	 * Wird beim LongClick eines Plättchens aufgerufen
+	 * @param v das geklickte Plättchen
+	 */
+	public void onTileLongClick(Tile v) {
+		// befindet sich unser Plättchen im unteren Raster?
+		// ( getParent():  Tile --> TableRow --> Raster )
+		if ( ((View)v.getParent().getParent()).getId() != R.id.rasterUnten ) {
+					
+			// Position des Plättchens im Raster
+			int srcPos = rasterPopup.getTilePosition(v);
+			int destPos = 0;
+			
+			//freies Feld suchen
+			Tile[] felder = rasterUnten.getTiles();
+			Tile dummyTile = null;
+			for (int i = 0; i <= felder.length; i++){
+				if (felder[i].isDummy()) {
+					destPos = rasterUnten.getTilePosition(felder[i]);
+					dummyTile = felder[i];					
+					break;
+				}
+			}
+			
+			
+			// Plättchen entfernen...
+			rasterPopup.removeTile(srcPos);
+			rasterUnten.removeTile(destPos);
+			
+			// ...und umgekehrt wieder einfügen.
+			rasterUnten.addTile(v, destPos);
+			rasterPopup.addTile(dummyTile, srcPos);
+		}
 	}
 	
 	/**

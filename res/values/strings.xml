@@ -12,6 +12,7 @@
     <string name="popup">Wähle weise</string>
     <string name="close">PopUp schließen</string>
     <string name="tipp">Tipp anzeigen</string>
+    <string name="back_to_raster">Zurücklegen</string>
     
     <string name="credits">Credits</string>
     <string name="credits_text">&lt;b>&lt;u>Linafm\'s Entwickler&lt;/b>&lt;/u>&lt;br>&lt;br>Alexander Brügmann - &lt;i>Code &amp; Konzeption&lt;/i>&lt;br>Daniel Philipp - &lt;i>Design &amp; Konzeption&lt;/i>&lt;br>Esther H&amp;auml;ntrich - &lt;i>Code &amp; Konzeption&lt;/i></string>

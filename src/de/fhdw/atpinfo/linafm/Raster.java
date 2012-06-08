@@ -76,7 +76,6 @@ public class Raster extends TableLayout {
 		setWeightSum((float)rowCount);
 		
 		// Raster aufbauen und füllen
-		int j = 0;
 		for (int i = 0; i < rowCount; i++)
 		{
 			// Neue Zeile im Table-Layout
@@ -280,6 +279,17 @@ public class Raster extends TableLayout {
 	public void setOnClickListenerForAllTiles(OnClickListener l) {
 		for ( Tile t : felder )
 			t.setOnClickListener(l);
+	}
+	
+	
+	/**
+	 * Setzt für alle Plättchen des Rasters den übergebenen OnLongClickListener
+	 * @param l OnLongClickListener
+	 */	
+	public void setOnLongClickListenerForAllTiles(OnLongClickListener l) {
+		for ( Tile t : felder ){
+			t.setOnLongClickListener(l);			
+		}
 	}
 	
 }
