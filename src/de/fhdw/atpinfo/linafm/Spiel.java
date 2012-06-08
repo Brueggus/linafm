@@ -133,10 +133,6 @@ public class Spiel extends Activity implements OnClickListener, OnLongClickListe
 		
 
 	}
-<<<<<<< HEAD
-
-
-=======
 	
 	/**
 	 * Sichert die Position der Plättchen, damit diese rekonstruiert werden kann,
@@ -202,9 +198,6 @@ public class Spiel extends Activity implements OnClickListener, OnLongClickListe
 			
 		}
 	}
-	
-	
->>>>>>> branch 'master' of https://DerDaniel@github.com/Brueggus/linafm.git
 	/**
 	 * Popup generieren
 	 */
