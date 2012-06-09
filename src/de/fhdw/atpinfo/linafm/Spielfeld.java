@@ -106,7 +106,6 @@ public class Spielfeld {
 	
 	/**
 	 * Prüft, ob alle Plätchen im Popup auf der richtigen Position liegen
-	 * @return true, wenn Level korrekt gelöst wurde
 	 */
 	public void validate(Context context) {
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService("layout_inflater");

@@ -85,7 +85,6 @@ public class Spiel extends Activity implements OnClickListener, OnLongClickListe
 	 * Wird aufgerufen, sobald ein neues Spiel erstellt wird
 	 * 
 	 * @param savedInstanceState
-	 * @param spielfeld
 	 */
 	protected void onCreate(Bundle savedInstanceState) {
 		context = Spiel.this;
@@ -147,8 +146,8 @@ public class Spiel extends Activity implements OnClickListener, OnLongClickListe
 	protected void onSaveInstanceState(Bundle outState)
 	{
 	    super.onSaveInstanceState(outState);
-	    outState.putIntArray("rPopup", spielfeld.getRasterPopup().getTileIDs()); // Raster Popup
-	    outState.putIntArray("rUnten", spielfeld.getRasterUnten().getTileIDs()); // Raster unten			
+	    outState.putIntArray("rPopup", rasterPopup.getTileIDs()); // Raster Popup
+	    outState.putIntArray("rUnten", rasterUnten.getTileIDs()); // Raster unten			
 	}
 	
 	/**
@@ -163,14 +162,10 @@ public class Spiel extends Activity implements OnClickListener, OnLongClickListe
 		
 		if ( tileOrder != null )
 		{
-			// unsere beiden Raster
-			Raster rUnten = spielfeld.getRasterUnten();
-			Raster rPopup = spielfeld.getRasterPopup();
-			
 			// erstmal alle Plättchen einsammeln
 			List<Tile> allTiles = new ArrayList<Tile>();
-			Collections.addAll(allTiles, rPopup.getTiles());
-			Collections.addAll(allTiles, rUnten.getTiles());
+			Collections.addAll(allTiles, rasterPopup.getTiles());
+			Collections.addAll(allTiles, rasterUnten.getTiles());
 			
 			// IDs der Plättchen aus dem Bundle auslesen
 			int rPopupIDs[] = tileOrder.getIntArray("rPopup");
@@ -178,12 +173,12 @@ public class Spiel extends Activity implements OnClickListener, OnLongClickListe
 			int rasterIDs[][] = { rPopupIDs, rUntenIDs };
 			
 			// alle Plättchen entfernen...
-			rUnten.clear();
-			rPopup.clear();
+			rasterUnten.clear();
+			rasterPopup.clear();
 			
 			// ... und in der richtigen Reihenfolge neu befüllen
 			// zuerst das Popup-Raster
-			Raster currRaster = rPopup;
+			Raster currRaster = rasterPopup;
 			for ( int[] IDs : rasterIDs ) {
 				for ( int id : IDs ) {
 					// Anhand der ID ermitteln wir das passende Plättchen
@@ -197,7 +192,7 @@ public class Spiel extends Activity implements OnClickListener, OnLongClickListe
 				}
 				
 				// und jetzt das untere
-				currRaster = rUnten;
+				currRaster = rasterUnten;
 			}
 			
 		}
@@ -397,11 +392,11 @@ public class Spiel extends Activity implements OnClickListener, OnLongClickListe
 		// Höhe des Containers für das Popup-Raster setzen
 		fl.setLayoutParams(new LinearLayout.LayoutParams(
 				LayoutParams.FILL_PARENT, 
-				spielfeld.getRasterUnten().getHeight() // Höhe unteres Raster
+				rasterUnten.getHeight() // Höhe unteres Raster
 		));
 		// Breite des Popup-Fensters setzen
 		mDlgPopup.getWindow().setLayout(
-				spielfeld.getRasterUnten().getWidth(), // Breite unteres Raster
+				rasterUnten.getWidth(), // Breite unteres Raster
 				LayoutParams.WRAP_CONTENT
 		);
 		// -- Pfusch Ende --

@@ -201,7 +201,6 @@ public class Raster extends TableLayout {
 	/**
 	 * Plättchen an einer bestimmten Position löschen
 	 * @param position Position
-	 * @param refreshView soll auch die Ansicht aktualisiert werden?
 	 * @throws ArrayIndexOutOfBoundsException
 	 */
 	public void removeTile(int position) throws ArrayIndexOutOfBoundsException {
