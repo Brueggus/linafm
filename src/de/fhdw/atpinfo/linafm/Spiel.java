@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.xmlpull.v1.XmlPullParserException;
 
-import de.fhdw.atpinfo.linafm.Tile.TileState;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -20,6 +19,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import de.fhdw.atpinfo.linafm.Tile.TileState;
 
 /**
  * Diese Klasse beinhaltet alles, was zum aktuellen Spiel gehört.
@@ -55,6 +55,11 @@ public class Spiel extends Activity implements OnClickListener, OnLongClickListe
 	 * Der Button zur Validierung
 	 */
 	private Button mBtnCheck;
+	
+	/**
+	 * Der Button zum Zurücksetzen des Spielfeldes
+	 */
+	private Button mBtnReset;
 	
 	/**
 	 * Der Popup-Dialog
@@ -130,8 +135,7 @@ public class Spiel extends Activity implements OnClickListener, OnLongClickListe
 		// Validierung
 		mBtnCheck = (Button) findViewById(R.id.btnCheck);
 		mBtnCheck.setOnClickListener(this);
-		
-
+	
 	}
 	
 	/**
@@ -221,6 +225,10 @@ public class Spiel extends Activity implements OnClickListener, OnLongClickListe
         button = (Button) dialog.findViewById(R.id.btnTipp);
         button.setOnClickListener(this);
         
+        // Reset-Button
+        button = (Button) dialog.findViewById(R.id.btnReset);
+        button.setOnClickListener(this);
+        
 		return dialog;
 	}
 
@@ -235,13 +243,31 @@ public class Spiel extends Activity implements OnClickListener, OnLongClickListe
 				}
 				break;
 			case R.id.btnCheck:
-				spielfeld.vaildate(context);
+				spielfeld.validate(context);
 				break;
 			case R.id.btnAbbruch:
 				mDlgPopup.cancel();
 				break;
 			case R.id.btnTipp:
 				spielfeld.tipp(context);
+				break;
+			case R.id.btnReset:
+				if(!rasterPopup.isEmpty()) {
+					
+					Tile[] tmp = rasterPopup.getTiles();
+					for (int i = 0; i < tmp.length; i++)
+					{
+						tmp[i] = new Tile(context, -1, null);
+						tmp[i].setNumeralImage(i);
+					}
+					rasterPopup.setTiles(tmp);
+					rasterPopup.buildRaster(context);
+					rasterPopup.setOnClickListenerForAllTiles(this);
+				}
+				// unteres Raster wieder auf den Originalzustand zurücksetzen
+				rasterUnten.setTiles(rasterUnten.getOriginalFelder().clone());
+				rasterUnten.buildRaster(context);
+				rasterUnten.setOnClickListenerForAllTiles(this);	
 				break;
 		}
 		

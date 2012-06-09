@@ -108,7 +108,7 @@ public class Spielfeld {
 	 * Prüft, ob alle Plätchen im Popup auf der richtigen Position liegen
 	 * @return true, wenn Level korrekt gelöst wurde
 	 */
-	public void vaildate(Context context) {
+	public void validate(Context context) {
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService("layout_inflater");
 		View toast_layout = inflater.inflate(R.layout.toastlayout, null);
 		ImageView image = (ImageView) toast_layout.findViewById(R.id.toastimage);

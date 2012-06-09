@@ -23,6 +23,13 @@ public class Raster extends TableLayout {
 	private Tile[] felder;
 	
 	/**
+	 * Enthält den initialen Zustand der Plättchen
+	 * Benötigt, um beim Resetten darauf zurückzugreifen und das untere 
+	 * Raster wieder initial aufzubauen
+	 */
+	private Tile[] originalFelder;
+	
+	/**
 	 * Größe des Rasters
 	 */
 	private int size = 0;
@@ -61,6 +68,8 @@ public class Raster extends TableLayout {
 		felder = tiles;
 		size = felder.length;
 		
+		originalFelder = felder.clone();
+		
 		buildRaster(context);
 	}
 	
@@ -98,7 +107,7 @@ public class Raster extends TableLayout {
 	 * Baut eine Zeile des Rasters mittels der Daten des Felder-Arrays neu auf
 	 * @param rowId Zeilennummer beginnend bei 0
 	 */
-	private void refreshRow(int rowId) {
+	void refreshRow(int rowId) {
 		TableRow row = rows.get(rowId);
 		
 		// erst mal leer machen
@@ -263,6 +272,10 @@ public class Raster extends TableLayout {
 		return felder;
 	}
 	
+	public void setTiles(Tile[] tiles) {
+		felder = tiles;
+	}
+	
 	/**
 	 * Ermittelt die Position eines bestimmten Plättchens im Raster
 	 * @param tile Plättchen, dessen Position gesucht wird
@@ -293,7 +306,22 @@ public class Raster extends TableLayout {
 		return size;
 	}
 	
-	
+	/**
+	 * Liefert die Original Felder zu Spielbeginn 
+	 * @return Original Felder beim initialisieren
+	 */
+	public Tile[] getOriginalFelder() {
+		return originalFelder;
+	}
+
+	/**
+	 * setzt die Originalfelder
+	 * @param originalFelder
+	 */
+	public void setOriginalFelder(Tile[] originalFelder) {
+		this.originalFelder = originalFelder;
+	}
+
 	/**
 	 * Setzt für alle Plättchen des Rasters den übergebenen OnLongClickListener
 	 * @param l OnLongClickListener

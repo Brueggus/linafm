@@ -32,6 +32,14 @@
             android:layout_alignParentBottom="true"
             android:layout_toLeftOf="@+id/btnAbbruch"
             android:text="@string/tipp" />
+	    
+	     <Button 
+            android:id="@+id/btnReset"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/btnTipp"
+            android:text="@string/reset" />
 	
 	</RelativeLayout>
 	    
