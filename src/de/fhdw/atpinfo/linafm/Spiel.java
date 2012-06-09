@@ -264,10 +264,12 @@ public class Spiel extends Activity implements OnClickListener, OnLongClickListe
 					rasterPopup.buildRaster(context);
 					rasterPopup.setOnClickListenerForAllTiles(this);
 				}
-				// unteres Raster wieder auf den Originalzustand zurücksetzen
+				// unteres Raster wieder auf den Original
 				rasterUnten.setTiles(rasterUnten.getOriginalFelder().clone());
 				rasterUnten.buildRaster(context);
-				rasterUnten.setOnClickListenerForAllTiles(this);	
+				rasterUnten.setOnClickListenerForAllTiles(this);
+				
+				
 				break;
 		}
 		
@@ -278,7 +280,7 @@ public class Spiel extends Activity implements OnClickListener, OnLongClickListe
 	
 	@Override
 	public boolean onLongClick(View v) {
-		onTileLongClick( (Tile)v );
+		resetTileFromPopUp( (Tile)v );
 		return false;
 	}
 
@@ -343,7 +345,7 @@ public class Spiel extends Activity implements OnClickListener, OnLongClickListe
 	 * Wird beim LongClick eines Plättchens aufgerufen
 	 * @param v das geklickte Plättchen
 	 */
-	public void onTileLongClick(Tile v) {
+	public void resetTileFromPopUp(Tile v) {
 		// befindet sich unser Plättchen im unteren Raster?
 		// ( getParent():  Tile --> TableRow --> Raster )
 		if ( ((View)v.getParent().getParent()).getId() != R.id.rasterUnten ) {
