@@ -271,6 +271,12 @@ public class Raster extends TableLayout {
 		return felder;
 	}
 	
+	/**
+	 * Setzt das Felder-Array
+	 * Achtung: Raster wird nicht automatisch neu aufgebaut,
+	 * hierzu ist ein Aufruf von buildRaster nötig! 
+	 * @param tiles Array mit Plättchen
+	 */
 	public void setTiles(Tile[] tiles) {
 		felder = tiles;
 	}
