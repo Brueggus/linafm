@@ -259,7 +259,7 @@ public class Spiel extends Activity implements OnClickListener, OnLongClickListe
 					rasterPopup.buildRaster(context);
 					rasterPopup.setOnClickListenerForAllTiles(this);
 				}
-				// unteres Raster wieder auf den Original
+				// unteres Raster wieder aufs Original zurücksetzen
 				rasterUnten.clear();
 				rasterUnten.setTiles(rasterUnten.getOriginalFelder().clone());
 				rasterUnten.buildRaster(context);
