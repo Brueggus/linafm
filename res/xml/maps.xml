@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<maps xmlns:android="http://schemas.android.com/apk/res/android">
+    <map name="mainmenu">
+        <area id="@+id/menu_play" shape="poly" coords="132,294,322,263,356,448,157,483" />
+        <area id="@+id/menu_end" shape="poly" coords="521,245,713,275,687,468,487,430" />
+    </map>
+    <map name="mainmenu_vert">
+        <area id="@+id/menu_play" shape="poly" coords="0,350,226,315,266,564,0,619" />
+        <area id="@+id/menu_end" shape="poly" coords="284,304,497,335,497,611,269,568" />
+    </map>
+</maps>

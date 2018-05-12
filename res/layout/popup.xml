@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/popupFrame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+     <FrameLayout
+        android:id="@+id/popup"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1">
+    </FrameLayout>
+    
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+    >
+	    <Button 
+	        android:id="@+id/btnAbbruch" 
+	        android:layout_width="wrap_content"
+	        android:layout_height="fill_parent"
+ 			android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+	        android:text="@string/close" 
+	        />
+	    
+	    <Button
+            android:id="@+id/btnTipp"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/btnAbbruch"
+            android:text="@string/tipp" />
+	    
+	     <Button 
+            android:id="@+id/btnReset"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/btnTipp"
+            android:text="@string/reset" />
+	
+	</RelativeLayout>
+	    
+
+</LinearLayout>
